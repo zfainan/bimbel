@@ -26,6 +26,13 @@ class Alumni extends Model
 
     protected $primaryKey = 'id_alumni';
 
+    protected $fillable = [
+        'nilai_ujian',
+        'pendidikan_lanjutan',
+        'tahun_angkatan',
+        'id_siswa',
+    ];
+
     public function siswa()
     {
         return $this->belongsTo(Siswa::class, 'id_siswa');

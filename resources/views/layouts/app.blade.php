@@ -52,7 +52,7 @@
                             <i class="fa fa-child"></i>
                         </div> Siswa
                     </a></li>
-                <li class="nav-item"><a class="nav-link" href="colors.html">
+                <li class="nav-item"><a class="nav-link" href="{{ route('alumni.index') }}">
                         <div class="nav-icon">
                             <i class="fa fa-user-graduate"></i>
                         </div> Alumni

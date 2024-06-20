@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * App\Models\Siswa
@@ -47,5 +48,10 @@ class Siswa extends Model
     public function jenisKelamin(): Attribute
     {
         return Attribute::make(fn (string $value) => $value == 'L' ? 'Laki-laki' : 'Perempuan');
+    }
+
+    public function alumni(): HasOne
+    {
+        return $this->hasOne(Alumni::class, 'id_siswa');
     }
 }

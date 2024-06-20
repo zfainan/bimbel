@@ -3,7 +3,7 @@
 @section('content')
     <div class="card mb-4">
         <div class="card-header">
-            <h3>Edit Siswa</h3>
+            <h3 class="h4">Edit Siswa</h3>
         </div>
         <div class="card-body">
             <form action="{{ route('siswa.update', $siswa) }}" method="POST">
