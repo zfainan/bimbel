@@ -56,7 +56,7 @@
                             <i class="fa fa-user-graduate"></i>
                         </div> Alumni
                     </a></li>
-                <li class="nav-item"><a class="nav-link" href="#">
+                <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">
                         <div class="nav-icon">
                             <i class="cil-people"></i>
                         </div> Users
