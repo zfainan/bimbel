@@ -10,7 +10,7 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::view('dashboard', 'dashboard');
+    Route::view('dashboard', 'dashboard')->name('dashboard');
     Route::resource('siswa', SiswaController::class);
     Route::resource('alumni', AlumniController::class);
 });

@@ -33,12 +33,12 @@
                     onclick="coreui.Sidebar.getInstance(document.querySelector(&quot;#sidebar&quot;)).toggle()"></button>
             </div>
             <ul class="sidebar-nav" data-coreui="navigation" data-simplebar>
-                <li class="nav-item"><a class="nav-link" href="index.html">
+                <li class="nav-item"><a class="nav-link" href="{{ route('dashboard') }}">
                         <div class="nav-icon">
                             <i class="cil-speedometer icon icon-lg"></i>
                         </div> Dashboard
                     </a></li>
-                <li class="nav-item"><a class="nav-link" href="index.html">
+                <li class="nav-item"><a class="nav-link" href="#">
                         <div class="nav-icon">
                             <i class="cil-money icon icon-lg"></i>
                         </div> Pembayaran
@@ -56,7 +56,7 @@
                             <i class="fa fa-user-graduate"></i>
                         </div> Alumni
                     </a></li>
-                <li class="nav-item"><a class="nav-link" href="colors.html">
+                <li class="nav-item"><a class="nav-link" href="#">
                         <div class="nav-icon">
                             <i class="cil-people"></i>
                         </div> Users
@@ -64,7 +64,7 @@
 
                 <li class="nav-divider"></li>
                 <li class="nav-title">Sistem</li>
-                <li class="nav-item"><a class="nav-link" href="colors.html">
+                <li class="nav-item"><a class="nav-link" href="#">
                         <div class="nav-icon">
                             <i class="fa-regular fa-building"></i>
                         </div> Cabang
