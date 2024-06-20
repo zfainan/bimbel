@@ -154,7 +154,7 @@
                             <div class="vr h-100 text-body mx-2 text-opacity-75"></div>
                         </li>
                         <li class="nav-item dropdown"><a class="nav-link py-0 pe-0" data-coreui-toggle="dropdown"
-                                href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                href="#" aria-haspopup="true" aria-expanded="false">
                                 <div class="avatar avatar-md"><img class="avatar-img" src="/assets/img/avatars/8.jpg"
                                         alt="user@email.com"></div>
                             </a>

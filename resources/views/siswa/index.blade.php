@@ -2,47 +2,66 @@
 
 @section('content')
     <div class="d-flex justify-content-between mb-3">
-        <h2>Daftar Siswa</h1>
-        <a href="{{ route('siswa.create') }}" class="btn btn-primary my-auto">Tambah Siswa</a>
+        <h1 class="h3">Daftar Siswa</h1>
+            <a href="{{ route('siswa.create') }}" class="btn btn-primary my-auto"><i class="cil-plus icon me-2"></i> Tambah Siswa</a>
     </div>
 
     @session('success')
-        <div class="alert alert-success">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             {{ $value }}
+            <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
         </div>
     @endsession
 
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Nama</th>
-                <th>Jenis Kelamin</th>
-                <th>Kelas</th>
-                <th>Status</th>
-                <th>Aksi</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($siswa as $item)
-                <tr>
-                    <td>{{ $item->nama }}</td>
-                    <td>{{ $item->jenis_kelamin }}</td>
-                    <td>{{ $item->kelas }}</td>
-                    <td>{{ $item->status }}</td>
-                    <td>
-                        <a href="{{ route('siswa.edit', $item->id_siswa) }}" class="btn btn-warning btn-sm">Edit</a>
-                        <form action="{{ route('siswa.destroy', $item->id_siswa) }}" method="POST"
-                            style="display:inline-block;">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                        </form>
-                        <a href="{{ route('siswa.show', $item->id_siswa) }}" class="btn btn-info btn-sm">Show</a>
-                    </td>
-                </tr>
-            @endforeach
-        </tbody>
-    </table>
+    @session('error')
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ $value }}
+            <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
+        </div>
+    @endsession
 
-    {{ $siswa->links() }}
+    <div class="card">
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" class="text-center">#</th>
+                        <th scope="col">Nama</th>
+                        <th scope="col">Jenis Kelamin</th>
+                        <th scope="col">Kelas</th>
+                        <th scope="col">Status</th>
+                        <th scope="col" class="text-center">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($siswa as $item)
+                        <tr>
+                            <th scope="col" class="text-center">{{ $loop->iteration }}</th>
+                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->jenis_kelamin }}</td>
+                            <td>{{ $item->kelas }}</td>
+                            <td>{{ $item->status }}</td>
+                            <td class="text-center">
+                                <a href="{{ route('siswa.show', $item->id_siswa) }}"class="btn-detail btn btn-outline-info btn-sm">
+                                    <i class='fa fa-eye'></i>
+                                </a>
+                                <a href="{{ route('siswa.edit', $item->id_siswa) }}"
+                                    class="btn btn-outline-warning btn-sm"><i class="cil-pencil icon"></i></a>
+                                <form action="{{ route('siswa.destroy', $item->id_siswa) }}" method="POST"
+                                    style="display:inline-block;"
+                                    onsubmit="return confirm('Anda yakin ingin menghapus data siswa {{ $item->nama }}?');">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-outline-danger btn-sm"><i
+                                            class="cil-trash icon"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+
+            {{ $siswa->links() }}
+        </div>
+    </div>
 @endsection

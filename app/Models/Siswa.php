@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -42,4 +43,9 @@ class Siswa extends Model
     protected $casts = [
         'tgl_lahir' => 'date:d-m-Y',
     ];
+
+    public function jenisKelamin(): Attribute
+    {
+        return Attribute::make(fn (string $value) => $value == 'L' ? 'Laki-laki' : 'Perempuan');
+    }
 }
