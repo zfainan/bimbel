@@ -18,7 +18,6 @@
     </head>
 
     <body>
-
         <div class="sidebar sidebar-dark sidebar-fixed border-end" id="sidebar">
             <div class="sidebar-header border-bottom">
                 <div class="sidebar-brand">
@@ -86,30 +85,7 @@
                             <i class="cil-menu"></i>
                         </div>
                     </button>
-                    <ul class="header-nav d-none d-lg-flex">
-                        <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Users</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
-                    </ul>
                     <ul class="header-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#">
-                                <div class="icon icon-lg">
-                                    <i class="cil-bell"></i>
-                                </div>
-                            </a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">
-                                <div class="icon icon-lg">
-                                    <i class="cil-list-rich"></i>
-                                </div>
-                            </a></li>
-                        <li class="nav-item"><a class="nav-link" href="#">
-                                <div class="icon icon-lg">
-                                    <i class="cil-envelope-open">
-                                    </i>
-                                </div>
-                            </a></li>
-                    </ul>
-                    <ul class="header-nav">
                         <li class="nav-item py-1">
                             <div class="vr h-100 text-body mx-2 text-opacity-75"></div>
                         </li>
@@ -161,52 +137,16 @@
                             <div class="dropdown-menu dropdown-menu-end pt-0">
                                 <div
                                     class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">
-                                    Account</div><a class="dropdown-item" href="#">
-                                    <div class="icon me-2">
-                                        <i class="cil-bell"></i>
-                                    </div> Updates<span class="badge badge-sm bg-info ms-2">42</span>
-                                </a><a class="dropdown-item" href="#">
-                                    <div class="icon me-2">
-                                        <i class="cil-envelope-open">
-                                        </i>
-                                    </div> Messages<span class="badge badge-sm bg-success ms-2">42</span>
-                                </a><a class="dropdown-item" href="#">
-                                    <div class="icon me-2">
-                                        <i class="cil-task"></i>
-                                    </div> Tasks<span class="badge badge-sm bg-danger ms-2">42</span>
-                                </a><a class="dropdown-item" href="#">
-                                    <div class="icon me-2">
-                                        <i class="cil-comment-square">
-                                        </i>
-                                    </div> Comments<span class="badge badge-sm bg-warning ms-2">42</span>
-                                </a>
-                                <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold my-2">
-                                    <div class="fw-semibold">Settings</div>
-                                </div><a class="dropdown-item" href="#">
+                                    <div class="fw-semibold">Account</div>
+                                </div>
+                                {{-- <a class="dropdown-item" href="#">
                                     <div class="icon me-2">
                                         <i class="cil-user"></i>
                                     </div> Profile
-                                </a><a class="dropdown-item" href="#">
-                                    <div class="icon me-2">
-                                        <i class="cil-settings">
-                                        </i>
-                                    </div> Settings
-                                </a><a class="dropdown-item" href="#">
-                                    <div class="icon me-2">
-                                        <i class="cil-credit-card">
-                                        </i>
-                                    </div> Payments<span class="badge badge-sm bg-secondary ms-2">42</span>
-                                </a><a class="dropdown-item" href="#">
-                                    <div class="icon me-2">
-                                        <i class="cil-file"></i>
-                                    </div> Projects<span class="badge badge-sm bg-primary ms-2">42</span>
                                 </a>
-                                <div class="dropdown-divider"></div><a class="dropdown-item" href="#">
-                                    <div class="icon me-2">
-                                        <i class="cil-lock-locked">
-                                        </i>
-                                    </div> Lock Account
-                                </a><a class="dropdown-item" href="#">
+                                <div class="dropdown-divider"></div> --}}
+                                <a class="dropdown-item" href="#" data-coreui-toggle="modal"
+                                    data-coreui-target="#logoutModal">
                                     <div class="icon me-2">
                                         <i class="cil-account-logout">
                                         </i>
@@ -235,6 +175,28 @@
                     &copy; 2024 creativeLabs.</div>
                 <div class="ms-auto">Powered by&nbsp;<a href="https://coreui.io/docs/">CoreUI UI Components</a></div>
             </footer>
+        </div>
+
+        <!-- Logout Modal -->
+        <div class="modal fade" id="logoutModal" tabindex="-1" aria-labelledby="logoutModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="logoutModalLabel">Logout</h5>
+                        <button type="button" class="btn-close" data-coreui-dismiss="modal"
+                            aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Apakah Anda yakin ingin keluar?
+                    </div>
+                    <form class="modal-footer" action="{{ 'logout' }}" method="POST">
+                        @csrf
+                        <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Batal</button>
+                        <button type="submit" class="btn btn-primary">Logout</button>
+                    </form>
+                </div>
+            </div>
         </div>
 
         <script>
