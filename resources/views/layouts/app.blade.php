@@ -23,10 +23,10 @@
             <div class="sidebar-header border-bottom">
                 <div class="sidebar-brand">
                     <svg class="sidebar-brand-full" width="88" height="32" alt="CoreUI Logo">
-                        <use xlink:href="assets/brand/coreui.svg#full"></use>
+                        <use xlink:href="/assets/brand/coreui.svg#full"></use>
                     </svg>
                     <svg class="sidebar-brand-narrow" width="32" height="32" alt="CoreUI Logo">
-                        <use xlink:href="assets/brand/coreui.svg#signet"></use>
+                        <use xlink:href="/assets/brand/coreui.svg#signet"></use>
                     </svg>
                 </div>
                 <button class="btn-close d-lg-none" type="button" data-coreui-dismiss="offcanvas"
@@ -47,7 +47,7 @@
 
                 <li class="nav-divider"></li>
                 <li class="nav-title">Master Data</li>
-                <li class="nav-item"><a class="nav-link" href="colors.html">
+                <li class="nav-item"><a class="nav-link" href="{{ route('siswa.index') }}">
                         <div class="nav-icon">
                             <i class="fa fa-child"></i>
                         </div> Siswa
@@ -155,7 +155,7 @@
                         </li>
                         <li class="nav-item dropdown"><a class="nav-link py-0 pe-0" data-coreui-toggle="dropdown"
                                 href="#" role="button" aria-haspopup="true" aria-expanded="false">
-                                <div class="avatar avatar-md"><img class="avatar-img" src="assets/img/avatars/8.jpg"
+                                <div class="avatar avatar-md"><img class="avatar-img" src="/assets/img/avatars/8.jpg"
                                         alt="user@email.com"></div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end pt-0">
@@ -219,33 +219,33 @@
                 <div class="container-fluid px-4">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb my-0">
-                            @section('breadcrumb')
-                            </ol>
-                        </nav>
-                    </div>
-                </header>
-                <div class="body flex-grow-1">
-                    <div class="container-lg px-4">
-                        @yield('content')
-                    </div>
+                            @yield('breadcrumb')
+                        </ol>
+                    </nav>
                 </div>
-                <footer class="footer px-4">
-                    <div><a href="https://coreui.io">CoreUI </a><a
-                            href="https://coreui.io/product/free-bootstrap-admin-template/">Bootstrap Admin Template</a>
-                        &copy; 2024 creativeLabs.</div>
-                    <div class="ms-auto">Powered by&nbsp;<a href="https://coreui.io/docs/">CoreUI UI Components</a></div>
-                </footer>
+            </header>
+            <div class="body flex-grow-1">
+                <div class="container-lg px-4">
+                    @yield('content')
+                </div>
             </div>
+            <footer class="footer px-4">
+                <div><a href="https://coreui.io">CoreUI </a><a
+                        href="https://coreui.io/product/free-bootstrap-admin-template/">Bootstrap Admin Template</a>
+                    &copy; 2024 creativeLabs.</div>
+                <div class="ms-auto">Powered by&nbsp;<a href="https://coreui.io/docs/">CoreUI UI Components</a></div>
+            </footer>
+        </div>
 
-            <script>
-                const header = document.querySelector('header.header');
+        <script>
+            const header = document.querySelector('header.header');
 
-                document.addEventListener('scroll', () => {
-                    if (header) {
-                        header.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0);
-                    }
-                });
-            </script>
-        </body>
+            document.addEventListener('scroll', () => {
+                if (header) {
+                    header.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0);
+                }
+            });
+        </script>
+    </body>
 
-    </html>
+</html>
