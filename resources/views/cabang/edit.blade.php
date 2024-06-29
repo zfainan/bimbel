@@ -13,17 +13,9 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="nama">Nama Cabang<span class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <div class="col-sm-10">
-                            <input type="text" value="{{ old('nama') ?? $cabang->nama }}"
-                                name="nama" class="form-control @error('nama') is-invalid @enderror"
-                                required>
-
-                            @error('nama')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                        <input type="text" value="{{ old('nama') ?? $cabang->nama }}"
+                            name="nama" class="form-control @error('nama') is-invalid @enderror"
+                            required>
 
                         @error('nama')
                             <span class="invalid-feedback" role="alert">
@@ -36,16 +28,8 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="alamat">Alamat<span class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <div class="col-sm-10">
-                            <textarea name="alamat" id="alamat" rows="3" class="form-control @error('alamat') is-invalid @enderror"
-                            required>{{ old('alamat') ?? $cabang->alamat }}</textarea>
-
-                            @error('alamat')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
+                        <textarea name="alamat" id="alamat" rows="3" class="form-control @error('alamat') is-invalid @enderror"
+                        required>{{ old('alamat') ?? $cabang->alamat }}</textarea>
 
                         @error('alamat')
                             <span class="invalid-feedback" role="alert">

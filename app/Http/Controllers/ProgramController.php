@@ -12,7 +12,9 @@ class ProgramController extends Controller
      */
     public function index()
     {
-        //
+        $program = Program::latest()->paginate();
+
+        return view('program.index', compact('program'));
     }
 
     /**
@@ -20,7 +22,7 @@ class ProgramController extends Controller
      */
     public function create()
     {
-        //
+        return view('program.create');
     }
 
     /**
@@ -28,7 +30,17 @@ class ProgramController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_program' => 'required|string|max:255',
+            'harga' => 'required|numeric',
+            'deskripsi' => 'required|string|max:255',
+        ]);
+
+        Program::create($request->all());
+
+        return redirect()
+            ->route('program.index')
+            ->with('success', 'Program created successfully.');
     }
 
     /**
@@ -44,7 +56,7 @@ class ProgramController extends Controller
      */
     public function edit(Program $program)
     {
-        //
+        return view('program.edit', compact('program'));
     }
 
     /**
@@ -52,7 +64,17 @@ class ProgramController extends Controller
      */
     public function update(Request $request, Program $program)
     {
-        //
+        $request->validate([
+            'nama_program' => 'required|string|max:255',
+            'harga' => 'required|numeric',
+            'deskripsi' => 'required|string|max:255',
+        ]);
+
+        $program->update($request->all());
+
+        return redirect()
+            ->route('program.index')
+            ->with('success', 'Program updated successfully.');
     }
 
     /**
@@ -60,6 +82,9 @@ class ProgramController extends Controller
      */
     public function destroy(Program $program)
     {
-        //
+        $program->delete();
+
+        return redirect()->route('program.index')
+            ->with('success', 'Program deleted successfully.');
     }
 }

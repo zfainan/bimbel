@@ -61,6 +61,11 @@
                             <i class="cil-people"></i>
                         </div> Users
                     </a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('program.index') }}">
+                        <div class="nav-icon">
+                            <i class="cil-people"></i>
+                        </div> Program
+                    </a></li>
 
                 <li class="nav-divider"></li>
                 <li class="nav-title">Sistem</li>

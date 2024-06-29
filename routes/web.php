@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\CabangController;
+use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -17,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('alumni', AlumniController::class)
         ->except(['create', 'store']);
     Route::resource('users', UserController::class);
+    Route::resource('program', ProgramController::class);
     Route::resource('cabang', CabangController::class);
 });
 

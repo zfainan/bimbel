@@ -29,4 +29,10 @@ class Program extends Model
     protected $table = 'tb_program';
 
     protected $primaryKey = 'id_program';
+
+    protected $fillable = [
+        'nama_program',
+        'harga',
+        'deskripsi',
+    ];
 }
