@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1 class="h3 mb-3">Daftar Alumni</h1>
+    <div class="d-flex justify-content-between mb-3">
+        <h1 class="h3">Daftar Cabang</h1>
+            <a href="{{ route('cabang.create') }}" class="btn btn-primary my-auto"><i class="cil-plus icon me-2"></i> Tambah Cabang</a>
+    </div>
 
     @session('success')
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -24,26 +27,22 @@
                     <tr>
                         <th scope="col" class="text-center">#</th>
                         <th scope="col">Nama</th>
-                        <th scope="col">Angkatan</th>
-                        <th scope="col">Nilai Ujian</th>
-                        <th scope="col">Pendidikan Lanjutan</th>
+                        <th scope="col">Alamat</th>
                         <th scope="col" class="text-center">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($alumni as $item)
+                    @foreach ($cabang as $item)
                         <tr>
                             <th scope="col" class="text-center">{{ $loop->iteration }}</th>
-                            <td>{{ $item->siswa->nama }}</td>
-                            <td>{{ $item->tahun_angkatan }}</td>
-                            <td>{{ $item->nilai_ujian }}</td>
-                            <td>{{ $item->pendidikan_lanjutan }}</td>
+                            <td>{{ $item->nama }}</td>
+                            <td>{{ $item->alamat }}</td>
                             <td class="text-center">
-                                <a href="{{ route('alumni.edit', $item->id_alumni) }}"
+                                <a href="{{ route('cabang.edit', $item->id_cabang) }}"
                                     class="btn btn-outline-warning btn-sm"><i class="cil-pencil icon"></i></a>
-                                <form action="{{ route('alumni.destroy', $item->id_alumni) }}" method="POST"
+                                <form action="{{ route('cabang.destroy', $item->id_cabang) }}" method="POST"
                                     style="display:inline-block;"
-                                    onsubmit="return confirm('Anda yakin ingin menghapus data alumni {{ $item->siswa->nama }}?');">
+                                    onsubmit="return confirm('Anda yakin ingin menghapus data cabang {{ $item->nama }}? Semua data terkait cabang akan terhapus.');">
                                     @csrf
                                     @method('DELETE')
                                     <button type="submit" class="btn btn-outline-danger btn-sm"><i
@@ -55,7 +54,7 @@
                 </tbody>
             </table>
 
-            {{ $alumni->links() }}
+            {{ $cabang->links() }}
         </div>
     </div>
 @endsection

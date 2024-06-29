@@ -10,9 +10,8 @@ enum RoleEnum: string
 {
     use EnumTrait;
 
-    case SysAdmin = 'Admin';
     case CentralHead = 'Pimpinan Pusat';
-    case Administrator = 'Bagian Administrasi';
+    case Administrator = 'Administrator';
 
     public static function getModelObjects(): Collection
     {

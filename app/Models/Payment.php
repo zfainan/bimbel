@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\BelongsToBranch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,19 +11,23 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @mixin Eloquent
  *
- * @property int         $id_pembayaran
- * @property int         $jumlah
+ * @property int $id_pembayaran
+ * @property int $jumlah
  * @property \Carbon\Carbon $tanggal
- * @property int         $sisa_bayar
- * @property string      $status
- * @property int         $id_siswa
- * @property int         $id_program
+ * @property int $sisa_bayar
+ * @property string $status
+ * @property int $id_siswa
+ * @property int $id_program
+ * @property string $id_cabang
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property \App\Models\Cabang|null $branch
+ *
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo branch
  */
 class Payment extends Model
 {
-    use HasFactory;
+    use BelongsToBranch, HasFactory;
 
     protected $table = 'tb_pembayaran';
 

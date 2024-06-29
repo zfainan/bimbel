@@ -16,6 +16,14 @@ return new class extends Migration
             $table->string('nama_program');
             $table->integer('harga');
             $table->string('deskripsi');
+            $table->foreignId('id_cabang')
+                ->nullable()
+                ->constrained(
+                    table: 'tb_cabang',
+                    column: 'id_cabang',
+                    indexName: 'program_id_cabang_foreign'
+                )
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

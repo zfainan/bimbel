@@ -15,6 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('jabatan')->latest()->paginate();
+
         return view('user.index', compact('users'));
     }
 
@@ -24,6 +25,7 @@ class UserController extends Controller
     public function create()
     {
         $jabatan = Jabatan::all();
+
         return view('user.create', compact('jabatan'));
     }
 
@@ -63,6 +65,7 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $jabatan = Jabatan::all();
+
         return view('user.edit', compact('user', 'jabatan'));
     }
 
@@ -73,7 +76,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'email' => 'required|string|email|max:255|unique:users,email,'.$user->id,
             'password' => 'nullable|string|min:8|confirmed',
             'id_jabatan' => 'required|exists:tb_jabatan,id_jabatan',
         ]);

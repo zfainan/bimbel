@@ -24,6 +24,14 @@ return new class extends Migration
             $table->string('asal_sekolah', 30);
             $table->string('kelas', 10);
             $table->string('status', 10);
+            $table->foreignId('id_cabang')
+                ->nullable()
+                ->constrained(
+                    table: 'tb_cabang',
+                    column: 'id_cabang',
+                    indexName: 'siswa_id_cabang_foreign'
+                )
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -17,6 +17,21 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->foreignId('id_jabatan')
+                ->constrained(
+                    table: 'tb_jabatan',
+                    column: 'id_jabatan',
+                    indexName: 'users_id_jabatan_foreign'
+                )
+                ->onDelete('cascade');
+            $table->foreignId('id_cabang')
+                ->nullable()
+                ->constrained(
+                    table: 'tb_cabang',
+                    column: 'id_cabang',
+                    indexName: 'users_id_cabang_foreign'
+                )
+                ->onDelete('cascade');
             $table->rememberToken();
             $table->timestamps();
         });

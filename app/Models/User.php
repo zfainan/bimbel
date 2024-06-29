@@ -2,12 +2,29 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Traits\BelongsToBranch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * App\Models\User
+ *
+ * @mixin Eloquent
+ *
+ * @property int $id_siswa
+ * @property string $name
+ * @property string $email
+ * @property string $password
+ * @property string $id_jabatan
+ * @property string $id_cabang
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property \App\Models\Cabang|null $branch
+ *
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo branch
+ */
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -22,6 +39,7 @@ class User extends Authenticatable
         'email',
         'password',
         'id_jabatan',
+        'id_cabang',
     ];
 
     /**
@@ -50,5 +68,10 @@ class User extends Authenticatable
     public function jabatan(): BelongsTo
     {
         return $this->belongsTo(Jabatan::class, 'id_jabatan');
+    }
+
+    public function branch(): BelongsTo
+    {
+        return $this->belongsTo(Cabang::class, 'id_cabang');
     }
 }

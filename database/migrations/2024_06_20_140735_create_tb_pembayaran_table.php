@@ -31,6 +31,14 @@ return new class extends Migration
                     indexName: 'tb_pembayaran_id_program_foreign'
                 )
                 ->onDelete('cascade');
+            $table->foreignId('id_cabang')
+                ->nullable()
+                ->constrained(
+                    table: 'tb_cabang',
+                    column: 'id_cabang',
+                    indexName: 'pembayaran_id_cabang_foreign'
+                )
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -64,7 +64,7 @@
 
                 <li class="nav-divider"></li>
                 <li class="nav-title">Sistem</li>
-                <li class="nav-item"><a class="nav-link" href="#">
+                <li class="nav-item"><a class="nav-link" href="{{ route('cabang.index') }}">
                         <div class="nav-icon">
                             <i class="fa-regular fa-building"></i>
                         </div> Cabang

@@ -3,7 +3,7 @@
 @section('content')
     <div class="card mb-4">
         <div class="card-header">
-            <h3 class="h4">Edit Alumnni</h3>
+            <h3 class="h4">Edit Alumni</h3>
         </div>
         <div class="card-body">
             <form action="{{ route('alumni.update', $alumni) }}" method="POST">
@@ -14,21 +14,7 @@
                     <label class="col-sm-2 col-form-label" for="id_siswa">Nama Siswa<span
                             class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <select name="id_siswa" class="form-select @error('id_siswa') is-invalid @enderror" required>
-                            <option value="">Pilih Siswa</option>
-                            @foreach ($siswa as $item)
-                                <option value="{{ $item->id_siswa }}"
-                                    {{ $item->id_siswa == $alumni->id_siswa ? 'selected' : '' }}>
-                                    {{ $item->nama }}
-                                </option>
-                            @endforeach
-                        </select>
-
-                        @error('id_siswa')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                        <input type="text" value="{{ $alumni->siswa->nama }}" class="form-control" disabled readonly>
                     </div>
                 </div>
                 <div class="row mb-3">

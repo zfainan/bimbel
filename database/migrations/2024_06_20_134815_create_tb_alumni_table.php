@@ -23,6 +23,14 @@ return new class extends Migration
                     indexName: 'tb_alumni_id_siswa_foreign'
                 )
                 ->onDelete('cascade');
+            $table->foreignId('id_cabang')
+                ->nullable()
+                ->constrained(
+                    table: 'tb_cabang',
+                    column: 'id_cabang',
+                    indexName: 'alumni_id_cabang_foreign'
+                )
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }
