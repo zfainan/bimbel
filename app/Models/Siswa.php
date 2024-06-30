@@ -9,6 +9,7 @@ use App\Traits\BelongsToBranch;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
@@ -29,10 +30,12 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
  * @property string $kelas
  * @property string $status
  * @property string $id_cabang
+ * @property \App\Models\Program|null $program
+ * @property \App\Models\Cabang|null $branch
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
- * @property \App\Models\Cabang|null $branch
  *
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo program
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo branch
  */
 class Siswa extends Model
@@ -77,6 +80,11 @@ class Siswa extends Model
     public function jenisKelamin(): Attribute
     {
         return Attribute::make(fn (string $value) => $value == 'L' ? 'Laki-laki' : 'Perempuan');
+    }
+
+    public function program(): BelongsTo
+    {
+        return $this->belongsTo(Program::class, 'id_program');
     }
 
     public function alumni(): HasOne

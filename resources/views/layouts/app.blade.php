@@ -38,7 +38,7 @@
                             <i class="cil-speedometer icon icon-lg"></i>
                         </div> Dashboard
                     </a></li>
-                <li class="nav-item"><a class="nav-link" href="#">
+                <li class="nav-item"><a class="nav-link" href="{{ route('payments.list-siswa') }}">
                         <div class="nav-icon">
                             <i class="cil-money icon icon-lg"></i>
                         </div> Pembayaran
@@ -63,7 +63,7 @@
                     </a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('program.index') }}">
                         <div class="nav-icon">
-                            <i class="cil-people"></i>
+                            <i class="cil-book"></i>
                         </div> Program
                     </a></li>
 

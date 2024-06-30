@@ -9,6 +9,6 @@ enum StatusSiswaEnum: string
     use EnumTrait;
 
     case Aktif = 'Aktif';
-    case Nonaktif = 'Tidak Aktif';
+    case Nonaktif = 'Nonaktif';
     case Alumni = 'Alumni';
 }

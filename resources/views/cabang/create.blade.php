@@ -12,9 +12,8 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="nama">Nama Cabang<span class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" value="{{ old('nama') }}"
-                            name="nama" class="form-control @error('nama') is-invalid @enderror"
-                            required>
+                        <input type="text" value="{{ old('nama') }}" name="nama"
+                            class="form-control @error('nama') is-invalid @enderror" required>
 
                         @error('nama')
                             <span class="invalid-feedback" role="alert">
@@ -27,9 +26,8 @@
                 <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="alamat">Alamat<span class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" value="{{ old('alamat') }}"
-                            name="alamat" class="form-control @error('alamat') is-invalid @enderror"
-                            required>
+                        <textarea name="alamat" id="alamat" rows="3" class="form-control @error('alamat') is-invalid @enderror"
+                            required>{{ old('alamat') }}</textarea>
 
                         @error('alamat')
                             <span class="invalid-feedback" role="alert">

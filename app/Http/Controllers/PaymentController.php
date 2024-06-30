@@ -3,22 +3,41 @@
 namespace App\Http\Controllers;
 
 use App\Models\Payment;
+use App\Models\Program;
+use App\Models\Siswa;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function siswa(Request $request)
     {
-        //
+        $siswa = Siswa::when($request->filled('keyword'), function (Builder $query) {
+            $keyword = request()->input('keyword');
+
+            $query->where('nama', 'like', "%$keyword%")
+                ->orWhere('kelas', $keyword);
+        })
+            ->when($request->filled('id_program'), function (Builder $query) {
+                $query->where('id_program', request()->input('id_program'));
+            })
+            ->paginate();
+
+        return view('payment.list-siswa', compact('siswa'));
+    }
+
+    public function index(Siswa $siswa)
+    {
+        $payments = Payment::where('id_siswa', $siswa->id_siswa)
+            ->paginate();
+
+        return view('payment.index', compact('siswa', 'payments'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Siswa $siswa)
     {
         //
     }
@@ -26,7 +45,7 @@ class PaymentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Siswa $siswa)
     {
         //
     }
@@ -34,7 +53,7 @@ class PaymentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Payment $payment)
+    public function show(Siswa $siswa, Payment $payment)
     {
         //
     }
@@ -42,7 +61,7 @@ class PaymentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Payment $payment)
+    public function edit(Siswa $siswa, Payment $payment)
     {
         //
     }
@@ -50,7 +69,7 @@ class PaymentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $request, Siswa $siswa, Payment $payment)
     {
         //
     }
@@ -58,7 +77,7 @@ class PaymentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Payment $payment)
+    public function destroy(Siswa $siswa, Payment $payment)
     {
         //
     }

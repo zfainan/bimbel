@@ -24,6 +24,14 @@ return new class extends Migration
             $table->string('asal_sekolah', 30);
             $table->string('kelas', 10);
             $table->string('status', 10);
+            $table->foreignId('id_program')
+                ->nullable()
+                ->constrained(
+                    table: 'tb_program',
+                    column: 'id_program',
+                    indexName: 'siswa_id_program_foreign'
+                )
+                ->onDelete('cascade');
             $table->foreignId('id_cabang')
                 ->nullable()
                 ->constrained(

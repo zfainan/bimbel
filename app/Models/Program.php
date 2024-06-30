@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Traits\BelongsToBranch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * App\Models\Program
@@ -16,11 +17,13 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $harga
  * @property string $deskripsi
  * @property string $id_cabang
+ * @property \Illuminate\Database\Eloquent\Collection|null $siswa
+ * @property \App\Models\Cabang|null $branch
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
- * @property \App\Models\Cabang|null $branch
  *
- * @method \Illuminate\Database\Eloquent\Relations\BelongsTo branch
+ * @method \Illuminate\Database\Eloquent\Collection|null siswa
+ * @method \Illuminate\Database\Eloquent\Relations\HasMany branch
  */
 class Program extends Model
 {
@@ -35,4 +38,9 @@ class Program extends Model
         'harga',
         'deskripsi',
     ];
+
+    public function siswa(): HasMany
+    {
+        return $this->hasMany(Siswa::class, 'id_program');
+    }
 }
