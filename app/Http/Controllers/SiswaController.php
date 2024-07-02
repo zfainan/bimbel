@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Enums\StatusSiswaEnum;
@@ -48,7 +50,7 @@ class SiswaController extends Controller
             'pekerjaan_ortu' => 'required|string|max:15',
             'asal_sekolah' => 'required|string|max:30',
             'kelas' => 'required|string|max:10',
-            'status' =>  ['required', Rule::enum(StatusSiswaEnum::class)],
+            'status' => ['required', Rule::enum(StatusSiswaEnum::class)],
             // if siswa is set to alumni
             'nilai_ujian' => sprintf(
                 'required_if:status,%s|numeric',
@@ -106,7 +108,7 @@ class SiswaController extends Controller
             'pekerjaan_ortu' => 'required|string|max:15',
             'asal_sekolah' => 'required|string|max:30',
             'kelas' => 'required|string|max:10',
-            'status' =>  ['required', Rule::enum(StatusSiswaEnum::class)],
+            'status' => ['required', Rule::enum(StatusSiswaEnum::class)],
             // if siswa is set to alumni
             'nilai_ujian' => sprintf(
                 'required_if:status,%s|numeric',

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Enums\StatusSiswaEnum;
@@ -104,13 +106,13 @@ class ProgramController extends Controller
     {
         $request->validate([
             'siswa' => 'nullable|array',
-            'siswa.*' => 'exists:tb_siswa,id_siswa'
+            'siswa.*' => 'exists:tb_siswa,id_siswa',
         ]);
 
         DB::transaction(function () use ($request, $program) {
             Siswa::whereIn('id_siswa', $request->siswa)
                 ->update([
-                    'id_program' => $program->id_program
+                    'id_program' => $program->id_program,
                 ]);
         });
 

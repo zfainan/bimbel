@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,8 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @mixin Eloquent
  *
- * @property int $id_jabatan
- * @property string $role_name
+ * @property int                 $id_jabatan
+ * @property string              $role_name
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  */

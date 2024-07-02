@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\CabangController;
 use App\Http\Controllers\PaymentController;

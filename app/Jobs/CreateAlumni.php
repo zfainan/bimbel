@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Jobs;
 
 use App\Models\Alumni;
@@ -18,8 +20,7 @@ class CreateAlumni
      */
     public function __construct(
         public Siswa $siswa
-    ) {
-    }
+    ) {}
 
     /**
      * Execute the job.

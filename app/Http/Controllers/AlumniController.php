@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Models\Alumni;
@@ -47,7 +49,7 @@ class AlumniController extends Controller
         $request->validate([
             'nilai_ujian' => 'required|numeric',
             'pendidikan_lanjutan' => 'required|string|max:20',
-            'tahun_angkatan' => 'required|string|max:10'
+            'tahun_angkatan' => 'required|string|max:10',
         ]);
 
         if (

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Enums\StatusSiswaEnum;
@@ -16,34 +18,36 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 /**
  * App\Models\Siswa
  *
- * @mixin Eloquent
  *
- * @property int $id_siswa
- * @property string $nama
- * @property \Carbon\Carbon $tgl_lahir
- * @property string $jenis_kelamin
- * @property string $alamat
- * @property string $no_telp
- * @property string $nama_ortu
- * @property string $no_telp_ortu
- * @property string $pekerjaan_ortu
- * @property string $asal_sekolah
- * @property string $kelas
- * @property string $status
- * @property string $id_program
- * @property string $id_cabang
- * @property \App\Models\Program|null $program
- * @property \App\Models\Cabang|null $branch
- * @property \App\Models\Cabang|null $branch
- * @property \App\Models\Alumni|null $alumni
- * @property \Illuminate\Database\Eloquent\Collection|null $payments
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo program
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo branch
  * @method \Illuminate\Database\Eloquent\Relations\HasOne alumni
  * @method \Illuminate\Database\Eloquent\Relations\HasMany payments
+ *
+ * @mixin Eloquent
+ *
+ * @property int                                           $id_siswa
+ * @property string                                        $nama
+ * @property \Carbon\Carbon                                $tgl_lahir
+ * @property string                                        $jenis_kelamin
+ * @property string                                        $alamat
+ * @property string                                        $no_telp
+ * @property string                                        $nama_ortu
+ * @property string                                        $no_telp_ortu
+ * @property string                                        $pekerjaan_ortu
+ * @property string                                        $asal_sekolah
+ * @property string                                        $kelas
+ * @property string                                        $status
+ * @property string                                        $id_program
+ * @property string                                        $id_cabang
+ * @property \App\Models\Program|null                      $program
+ * @property \App\Models\Cabang|null                       $branch
+ * @property \App\Models\Cabang|null                       $branch
+ * @property \App\Models\Alumni|null                       $alumni
+ * @property \Illuminate\Database\Eloquent\Collection|null $payments
+ * @property \Carbon\Carbon|null                           $created_at
+ * @property \Carbon\Carbon|null                           $updated_at
  */
 class Siswa extends Model
 {
@@ -86,13 +90,13 @@ class Siswa extends Model
 
     public function jenisKelamin(): Attribute
     {
-        return Attribute::make(fn (string $value) => $value == 'L' ? 'Laki-laki' : 'Perempuan');
+        return Attribute::make(fn (string $value) => 'L' == $value ? 'Laki-laki' : 'Perempuan');
     }
 
     public function sisaBayar(): Attribute
     {
         return Attribute::make(get: function () {
-            if (!$this->id_program) {
+            if (! $this->id_program) {
                 return 0;
             }
 

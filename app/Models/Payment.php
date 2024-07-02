@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use App\Traits\BelongsToBranch;
@@ -9,21 +11,25 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Payment
  *
+ *
+ *
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo siswa
+ * @method \Illuminate\Database\Eloquent\Relations\BelongsTo branch
+ *
  * @mixin Eloquent
  *
- * @property int $id_pembayaran
- * @property int $jumlah
- * @property \Carbon\Carbon $tanggal
- * @property int $sisa_bayar
- * @property string $status
- * @property int $id_siswa
- * @property int $id_program
- * @property string $id_cabang
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property int                     $id_pembayaran
+ * @property int                     $jumlah
+ * @property \Carbon\Carbon          $tanggal
+ * @property int                     $sisa_bayar
+ * @property string                  $status
+ * @property int                     $id_siswa
+ * @property int                     $id_program
+ * @property string                  $id_cabang
+ * @property \Carbon\Carbon|null     $created_at
+ * @property \Carbon\Carbon|null     $updated_at
+ * @property \App\Models\Siswa|null  $siswa
  * @property \App\Models\Cabang|null $branch
- *
- * @method \Illuminate\Database\Eloquent\Relations\BelongsTo branch
  */
 class Payment extends Model
 {
@@ -39,7 +45,7 @@ class Payment extends Model
         'id_program',
         'id_siswa',
         'sisa_bayar',
-        'status'
+        'status',
     ];
 
     public function siswa()

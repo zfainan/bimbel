@@ -1,10 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers;
 
 use App\Enums\StatusBayarEnum;
 use App\Models\Payment;
-use App\Models\Program;
 use App\Models\Siswa;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -58,10 +59,10 @@ class PaymentController extends Controller
     {
         $request->validate([
             'jumlah' => 'numeric|min:0',
-            'tanggal' => 'required|date|before_or_equal:today'
+            'tanggal' => 'required|date|before_or_equal:today',
         ]);
 
-        if (!$siswa->id_program) {
+        if (! $siswa->id_program) {
             return redirect()->route('siswa.payments.index', $siswa)->with('error', 'Siswa does not have program');
         }
 

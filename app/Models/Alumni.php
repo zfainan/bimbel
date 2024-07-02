@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -8,19 +10,21 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * App\Models\Alumni
  *
- * @mixin Eloquent
  *
- * @property int $id_alumni
- * @property float $nilai_ujian
- * @property string $pendidikan_lanjutan
- * @property string $tahun_angkatan
- * @property int $id_siswa
- * @property string $id_cabang
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @property \App\Models\Cabang|null $branch
  *
  * @method \Illuminate\Database\Eloquent\Relations\BelongsTo branch
+ *
+ * @mixin Eloquent
+ *
+ * @property int                     $id_alumni
+ * @property float                   $nilai_ujian
+ * @property string                  $pendidikan_lanjutan
+ * @property string                  $tahun_angkatan
+ * @property int                     $id_siswa
+ * @property string                  $id_cabang
+ * @property \Carbon\Carbon|null     $created_at
+ * @property \Carbon\Carbon|null     $updated_at
+ * @property \App\Models\Cabang|null $branch
  */
 class Alumni extends Model
 {
