@@ -10,23 +10,22 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 /**
- * App\Models\User
+ * @method static \Database\Factories\UserFactory<self> factory($count = null, $state = [])
  *
+ * @mixin \Illuminate\Database\Eloquent\Model
  *
- *
- * @method \Illuminate\Database\Eloquent\Relations\BelongsTo branch
- *
- * @mixin Eloquent
- *
- * @property int                     $id_siswa
- * @property string                  $name
- * @property string                  $email
- * @property string                  $password
- * @property string                  $id_jabatan
- * @property string                  $id_cabang
- * @property \Carbon\Carbon|null     $created_at
- * @property \Carbon\Carbon|null     $updated_at
- * @property \App\Models\Cabang|null $branch
+ * @property      int                             $id
+ * @property      string                          $name
+ * @property      string                          $email
+ * @property      \Illuminate\Support\Carbon|null $email_verified_at
+ * @property      string                          $password
+ * @property      int                             $id_jabatan
+ * @property      int|null                        $id_cabang
+ * @property      string|null                     $remember_token
+ * @property      \Illuminate\Support\Carbon|null $created_at
+ * @property      \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Jabatan|null        $jabatan
+ * @property-read \App\Models\Cabang|null         $branch
  */
 class User extends Authenticatable
 {

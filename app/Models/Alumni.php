@@ -6,25 +6,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * App\Models\Alumni
+ * @method static \Database\Factories\AlumniFactory<self> factory($count = null, $state = [])
  *
+ * @mixin \Illuminate\Database\Eloquent\Model
  *
- *
- * @method \Illuminate\Database\Eloquent\Relations\BelongsTo branch
- *
- * @mixin Eloquent
- *
- * @property int                     $id_alumni
- * @property float                   $nilai_ujian
- * @property string                  $pendidikan_lanjutan
- * @property string                  $tahun_angkatan
- * @property int                     $id_siswa
- * @property string                  $id_cabang
- * @property \Carbon\Carbon|null     $created_at
- * @property \Carbon\Carbon|null     $updated_at
- * @property \App\Models\Cabang|null $branch
+ * @property      int                             $id_alumni
+ * @property      float                           $nilai_ujian
+ * @property      string                          $pendidikan_lanjutan
+ * @property      string                          $tahun_angkatan
+ * @property      int                             $id_siswa
+ * @property      int|null                        $id_cabang
+ * @property      \Illuminate\Support\Carbon|null $created_at
+ * @property      \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Siswa|null          $siswa
  */
 class Alumni extends Model
 {
@@ -41,7 +38,7 @@ class Alumni extends Model
         'id_siswa',
     ];
 
-    public function siswa()
+    public function siswa(): BelongsTo
     {
         return $this->belongsTo(Siswa::class, 'id_siswa');
     }

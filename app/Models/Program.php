@@ -10,24 +10,19 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
- * App\Models\Program
+ * @method static \Database\Factories\ProgramFactory<self> factory($count = null, $state = [])
  *
+ * @mixin \Illuminate\Database\Eloquent\Model
  *
- *
- * @method \Illuminate\Database\Eloquent\Collection|null siswa
- * @method \Illuminate\Database\Eloquent\Relations\HasMany branch
- *
- * @mixin Eloquent
- *
- * @property int                                           $id_program
- * @property string                                        $nama_program
- * @property int                                           $harga
- * @property string                                        $deskripsi
- * @property string                                        $id_cabang
- * @property \Illuminate\Database\Eloquent\Collection|null $siswa
- * @property \App\Models\Cabang|null                       $branch
- * @property \Carbon\Carbon|null                           $created_at
- * @property \Carbon\Carbon|null                           $updated_at
+ * @property      int                                                          $id_program
+ * @property      string                                                       $nama_program
+ * @property      int                                                          $harga
+ * @property      string                                                       $deskripsi
+ * @property      int|null                                                     $id_cabang
+ * @property      \Illuminate\Support\Carbon|null                              $created_at
+ * @property      \Illuminate\Support\Carbon|null                              $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Siswa[] $siswa
+ * @property-read \App\Models\Cabang|null                                      $branch
  */
 class Program extends Model
 {

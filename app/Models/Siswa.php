@@ -16,38 +16,33 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * App\Models\Siswa
+ * @method static \Database\Factories\SiswaFactory<self> factory($count = null, $state = [])
  *
+ * @mixin \Illuminate\Database\Eloquent\Model
  *
- *
- * @method \Illuminate\Database\Eloquent\Relations\BelongsTo program
- * @method \Illuminate\Database\Eloquent\Relations\BelongsTo branch
- * @method \Illuminate\Database\Eloquent\Relations\HasOne alumni
- * @method \Illuminate\Database\Eloquent\Relations\HasMany payments
- *
- * @mixin Eloquent
- *
- * @property int                                           $id_siswa
- * @property string                                        $nama
- * @property \Carbon\Carbon                                $tgl_lahir
- * @property string                                        $jenis_kelamin
- * @property string                                        $alamat
- * @property string                                        $no_telp
- * @property string                                        $nama_ortu
- * @property string                                        $no_telp_ortu
- * @property string                                        $pekerjaan_ortu
- * @property string                                        $asal_sekolah
- * @property string                                        $kelas
- * @property string                                        $status
- * @property string                                        $id_program
- * @property string                                        $id_cabang
- * @property \App\Models\Program|null                      $program
- * @property \App\Models\Cabang|null                       $branch
- * @property \App\Models\Cabang|null                       $branch
- * @property \App\Models\Alumni|null                       $alumni
- * @property \Illuminate\Database\Eloquent\Collection|null $payments
- * @property \Carbon\Carbon|null                           $created_at
- * @property \Carbon\Carbon|null                           $updated_at
+ * @property      int                                                            $id_siswa
+ * @property      string                                                         $nama
+ * @property      string                                                         $tgl_lahir
+ * @property      string                                                         $alamat
+ * @property      string                                                         $no_telp
+ * @property      string                                                         $nama_ortu
+ * @property      string                                                         $no_telp_ortu
+ * @property      string                                                         $pekerjaan_ortu
+ * @property      string                                                         $asal_sekolah
+ * @property      string                                                         $kelas
+ * @property      string                                                         $status
+ * @property      int|null                                                       $id_program
+ * @property      int|null                                                       $id_cabang
+ * @property      \Illuminate\Support\Carbon|null                                $created_at
+ * @property      \Illuminate\Support\Carbon|null                                $updated_at
+ * @property      mixed                                                          $jenisKelamin
+ * @property      mixed                                                          $jenis_kelamin
+ * @property      mixed                                                          $sisaBayar
+ * @property      mixed                                                          $sisa_bayar
+ * @property-read \App\Models\Program|null                                       $program
+ * @property-read \App\Models\Alumni|null                                        $alumni
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Payment[] $payments
+ * @property-read \App\Models\Cabang|null                                        $branch
  */
 class Siswa extends Model
 {

@@ -7,29 +7,24 @@ namespace App\Models;
 use App\Traits\BelongsToBranch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * App\Models\Payment
+ * @method static \Database\Factories\PaymentFactory<self> factory($count = null, $state = [])
  *
+ * @mixin \Illuminate\Database\Eloquent\Model
  *
- *
- * @method \Illuminate\Database\Eloquent\Relations\BelongsTo siswa
- * @method \Illuminate\Database\Eloquent\Relations\BelongsTo branch
- *
- * @mixin Eloquent
- *
- * @property int                     $id_pembayaran
- * @property int                     $jumlah
- * @property \Carbon\Carbon          $tanggal
- * @property int                     $sisa_bayar
- * @property string                  $status
- * @property int                     $id_siswa
- * @property int                     $id_program
- * @property string                  $id_cabang
- * @property \Carbon\Carbon|null     $created_at
- * @property \Carbon\Carbon|null     $updated_at
- * @property \App\Models\Siswa|null  $siswa
- * @property \App\Models\Cabang|null $branch
+ * @property      int                             $id_pembayaran
+ * @property      int                             $jumlah
+ * @property      string                          $tanggal
+ * @property      int                             $sisa_bayar
+ * @property      string                          $status
+ * @property      int                             $id_siswa
+ * @property      int                             $id_program
+ * @property      int|null                        $id_cabang
+ * @property      \Illuminate\Support\Carbon|null $created_at
+ * @property      \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Cabang|null         $branch
  */
 class Payment extends Model
 {
@@ -48,12 +43,12 @@ class Payment extends Model
         'status',
     ];
 
-    public function siswa()
+    public function siswa(): BelongsTo
     {
         return $this->belongsTo(Siswa::class, 'id_siswa');
     }
 
-    public function program()
+    public function program(): BelongsTo
     {
         return $this->belongsTo(Program::class, 'id_program');
     }

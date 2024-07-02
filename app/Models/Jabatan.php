@@ -8,14 +8,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * App\Models\Jabatan
+ * @method static \Database\Factories\JabatanFactory<self> factory($count = null, $state = [])
  *
- * @mixin Eloquent
+ * @mixin \Illuminate\Database\Eloquent\Model
  *
- * @property int                 $id_jabatan
- * @property string              $role_name
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
+ * @property int                             $id_jabatan
+ * @property string                          $role_name
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  */
 class Jabatan extends Model
 {
