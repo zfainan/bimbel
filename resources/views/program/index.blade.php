@@ -41,6 +41,8 @@
                             <td>{{ $item->harga }}</td>
                             <td>{{ $item->deskripsi }}</td>
                             <td class="text-center">
+                                <a href="{{ route('program.show', $item->id_program) }}"
+                                    class="btn btn-outline-info btn-sm"><i class="fa fa-eye"></i></a>
                                 <a href="{{ route('program.edit', $item->id_program) }}"
                                     class="btn btn-outline-warning btn-sm"><i class="cil-pencil icon"></i></a>
                                 <form action="{{ route('program.destroy', $item->id_program) }}" method="POST"

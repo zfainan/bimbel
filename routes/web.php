@@ -33,6 +33,12 @@ Route::middleware('auth')->group(function () {
         ->name('payments.list-siswa');
 
     Route::resource('siswa.payments', PaymentController::class);
+
+    Route::post('program/{program}/add-siswa', [ProgramController::class, 'addSiswa'])
+        ->name('program.add-siswa');
+
+    Route::post('program/{program}/remove-siswa/{siswa}', [ProgramController::class, 'removeSiswa'])
+        ->name('program.remove-siswa');
 });
 
 Auth::routes();

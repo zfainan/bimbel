@@ -1,7 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-    <h1 class="h3 mb-3">Daftar Pembayaran Siswa</h1>
+    <div class="d-flex justify-content-between mb-3">
+        <h1 class="h3">Daftar Pembayaran Siswa</h1>
+        <a href="{{ route('siswa.payments.create', $siswa) }}" class="btn btn-primary my-auto"><i
+                class="cil-plus icon me-2"></i> Tambah Pembayaran</a>
+    </div>
 
     @session('success')
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -16,6 +20,39 @@
             <button type="button" class="btn-close" data-coreui-dismiss="alert" aria-label="Close"></button>
         </div>
     @endsession
+
+    <div class="pb-4 pt-2">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <small>Nama Siswa</small>
+                <p class="mb-0">{{ $siswa->nama }}</p>
+            </li>
+            <li class="list-group-item">
+                <small>Kelas</small>
+                <p class="mb-0">{{ $siswa->kelas }}</p>
+            </li>
+            <li class="list-group-item">
+                <small>Jenis Kelamin</small>
+                <p class="mb-0">{{ $siswa->jenis_kelamin }}</p>
+            </li>
+            <li class="list-group-item">
+                <small>Alamat</small>
+                <p class="mb-0">{{ $siswa->alamat }}</p>
+            </li>
+            <li class="list-group-item">
+                <small>No. Telepon</small>
+                <p class="mb-0">{{ $siswa->no_telp }}</p>
+            </li>
+            <li class="list-group-item">
+                <small>Nama Orang Tua</small>
+                <p class="mb-0">{{ $siswa->nama_ortu }}</p>
+            </li>
+            <li class="list-group-item">
+                <small>No. Telepon Orang Tua</small>
+                <p class="mb-0">{{ $siswa->no_telp_ortu }}</p>
+            </li>
+        </ul>
+    </div>
 
     <div class="card">
         <div class="card-body">

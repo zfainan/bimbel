@@ -11,7 +11,7 @@
                 @method('PUT')
 
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="nama_program">Nama_program Program<span
+                    <label class="col-sm-2 col-form-label" for="nama_program">Nama Program<span
                             class="text-danger">*</span></label>
                     <div class="col-sm-10">
                         <input type="text" value="{{ old('nama_program') ?? $program->nama_program }}" name="nama_program"

@@ -39,7 +39,7 @@ class PaymentController extends Controller
      */
     public function create(Siswa $siswa)
     {
-        //
+        return view('payment.create', compact('siswa'));
     }
 
     /**

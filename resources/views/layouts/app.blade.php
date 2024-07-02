@@ -14,6 +14,9 @@
         <!-- Scripts -->
         @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 
+        {{-- datatable --}}
+        <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.bootstrap5.css">
+
         <script src="https://kit.fontawesome.com/a584191b57.js" crossorigin="anonymous"></script>
     </head>
 
@@ -213,6 +216,13 @@
                 }
             });
         </script>
+
+        <script src="https://code.jquery.com/jquery-3.7.1.slim.min.js"
+            integrity="sha256-kmHvs0B+OpCW5GVHUNjv9rOmY0IvSIRcf7zGUDTDQM8=" crossorigin="anonymous"></script>
+        <script src="https://cdn.datatables.net/2.0.8/js/dataTables.js"></script>
+        <script src="https://cdn.datatables.net/2.0.8/js/dataTables.bootstrap5.js"></script>
+
+        @yield('script')
     </body>
 
 </html>

@@ -35,7 +35,7 @@
                             <td>{{ $item->nama }}</td>
                             <td class="text-center">{{ $item->kelas }}</td>
                             <td class="text-center">
-                                <a href="{{ route('payments.index', $item) }}"
+                                <a href="{{ route('siswa.payments.index', $item) }}"
                                     class="btn btn-outline-info btn-sm"><i class="fa-regular fa-eye"></i> Detail</a>
                             </td>
                         </tr>

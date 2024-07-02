@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\StatusSiswaEnum;
 use App\Models\Program;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProgramController extends Controller
 {
@@ -48,7 +51,11 @@ class ProgramController extends Controller
      */
     public function show(Program $program)
     {
-        //
+        $siswa = Siswa::where('status', StatusSiswaEnum::Aktif->value)
+            ->whereDoesntHave('program')
+            ->get();
+
+        return view('program.show', compact('program', 'siswa'));
     }
 
     /**
@@ -82,9 +89,40 @@ class ProgramController extends Controller
      */
     public function destroy(Program $program)
     {
+        if (count($program->siswa)) {
+            return redirect()->route('program.index')
+                ->with('error', 'Program has siswa.');
+        }
+
         $program->delete();
 
         return redirect()->route('program.index')
             ->with('success', 'Program deleted successfully.');
+    }
+
+    public function addSiswa(Request $request, Program $program)
+    {
+        $request->validate([
+            'siswa' => 'nullable|array',
+            'siswa.*' => 'exists:tb_siswa,id_siswa'
+        ]);
+
+        DB::transaction(function () use ($request, $program) {
+            Siswa::whereIn('id_siswa', $request->siswa)
+                ->update([
+                    'id_program' => $program->id_program
+                ]);
+        });
+
+        return redirect()->route('program.show', $program)
+            ->with('success', 'Siswa updated successfully.');
+    }
+
+    public function removeSiswa(Program $program, Siswa $siswa)
+    {
+        $siswa->program()->disassociate()->save();
+
+        return redirect()->route('program.show', $program)
+            ->with('success', 'Siswa removed successfully.');
     }
 }
