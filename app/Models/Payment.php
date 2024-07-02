@@ -24,6 +24,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property      int|null                        $id_cabang
  * @property      \Illuminate\Support\Carbon|null $created_at
  * @property      \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \App\Models\Siswa|null          $siswa
+ * @property-read \App\Models\Program|null        $program
  * @property-read \App\Models\Cabang|null         $branch
  */
 class Payment extends Model
