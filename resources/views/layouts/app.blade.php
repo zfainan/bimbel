@@ -173,7 +173,7 @@
                 </div>
             </header>
             <div class="body flex-grow-1">
-                <div class="container-lg px-4">
+                <div class="container-lg px-4 pb-5">
                     @yield('content')
                 </div>
             </div>

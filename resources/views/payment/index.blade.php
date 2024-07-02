@@ -51,6 +51,10 @@
                 <small>No. Telepon Orang Tua</small>
                 <p class="mb-0">{{ $siswa->no_telp_ortu }}</p>
             </li>
+            <li class="list-group-item">
+                <small>Sisa Tagihan</small>
+                <p class="mb-0">Rp {{ $siswa->sisa_bayar }}</p>
+            </li>
         </ul>
     </div>
 

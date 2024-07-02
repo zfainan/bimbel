@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\StatusBayarEnum;
 use App\Models\Payment;
 use App\Models\Program;
 use App\Models\Siswa;
@@ -21,6 +22,7 @@ class PaymentController extends Controller
             ->when($request->filled('id_program'), function (Builder $query) {
                 $query->where('id_program', request()->input('id_program'));
             })
+            ->whereHas('program')
             ->paginate();
 
         return view('payment.list-siswa', compact('siswa'));
@@ -28,7 +30,11 @@ class PaymentController extends Controller
 
     public function index(Siswa $siswa)
     {
+        $siswa->load('program', 'payments');
+        $siswa->append('sisa_bayar');
+
         $payments = Payment::where('id_siswa', $siswa->id_siswa)
+            ->where('id_program', $siswa->id_program)
             ->paginate();
 
         return view('payment.index', compact('siswa', 'payments'));
@@ -39,6 +45,9 @@ class PaymentController extends Controller
      */
     public function create(Siswa $siswa)
     {
+        $siswa->load('program', 'payments');
+        $siswa->append('sisa_bayar');
+
         return view('payment.create', compact('siswa'));
     }
 
@@ -47,7 +56,29 @@ class PaymentController extends Controller
      */
     public function store(Request $request, Siswa $siswa)
     {
-        //
+        $request->validate([
+            'jumlah' => 'numeric|min:0',
+            'tanggal' => 'required|date|before_or_equal:today'
+        ]);
+
+        if (!$siswa->id_program) {
+            return redirect()->route('siswa.payments.index', $siswa)->with('error', 'Siswa does not have program');
+        }
+
+        $harga = $siswa->program->harga;
+        $sisaBayar = $harga - $siswa->payments->where('id_program', $siswa->id_program)
+            ->sum('jumlah') - $request->jumlah;
+
+        Payment::create([
+            'jumlah' => $request->jumlah,
+            'tanggal' => $request->tanggal,
+            'sisa_bayar' => $sisaBayar,
+            'status' => StatusBayarEnum::Terbayar->value,
+            'id_siswa' => $siswa->id_siswa,
+            'id_program' => $siswa->id_program,
+        ]);
+
+        return redirect()->route('siswa.payments.index', $siswa)->with('success', 'Payment created succesfully');
     }
 
     /**

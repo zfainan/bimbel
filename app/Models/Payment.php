@@ -33,6 +33,15 @@ class Payment extends Model
 
     protected $primaryKey = 'id_pembayaran';
 
+    protected $fillable = [
+        'jumlah',
+        'tanggal',
+        'id_program',
+        'id_siswa',
+        'sisa_bayar',
+        'status'
+    ];
+
     public function siswa()
     {
         return $this->belongsTo(Siswa::class, 'id_siswa');

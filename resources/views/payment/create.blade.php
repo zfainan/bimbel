@@ -31,22 +31,33 @@
                 <small>Program</small>
                 <p class="mb-0">{{ $siswa->program?->nama_program ?? '-' }}</p>
             </li>
+            <li class="list-group-item">
+                <small>Harga Program</small>
+                <p class="mb-0">Rp {{ $siswa->program?->harga ?? '-' }}</p>
+            </li>
+            <li class="list-group-item">
+                <small>Terbayar</small>
+                <p class="mb-0">Rp {{ $siswa->program?->harga - $siswa->sisa_bayar ?? '-' }}</p>
+            </li>
+            <li class="list-group-item">
+                <small>Sisa Tagihan</small>
+                <p class="mb-0">Rp {{ $siswa->sisa_bayar ?? '-' }}</p>
+            </li>
         </ul>
     </div>
 
     <div class="card mb-4">
         <div class="card-body">
-            <form action="{{ route('program.store') }}" method="POST">
+            <form action="{{ route('siswa.payments.store', $siswa) }}" method="POST">
                 @csrf
 
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="nama_program">Jumlah pembayaran<span
-                            class="text-danger">*</span></label>
+                    <label class="col-sm-2 col-form-label" for="tanggal">Tanggal<span class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <input type="text" value="{{ old('nama_program') }}" name="nama_program"
-                            class="form-control @error('nama_program') is-invalid @enderror" required>
+                        <input type="date" value="{{ old('tanggal') ?? today()->format('Y-m-d') }}" name="tanggal"
+                            class="form-control @error('tanggal') is-invalid @enderror" required>
 
-                        @error('nama_program')
+                        @error('tanggal')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -55,27 +66,13 @@
                 </div>
 
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="harga">Harga<span class="text-danger">*</span></label>
-                    <div class="col-sm-10">
-                        <input type="number" value="{{ old('harga') }}" name="harga"
-                            class="form-control @error('harga') is-invalid @enderror" required>
-
-                        @error('harga')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="">Deskripsi<span
+                    <label class="col-sm-2 col-form-label" for="jumlah">Jumlah pembayaran<span
                             class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <textarea name="deskripsi" id="deskripsi" rows="3" class="form-control @error('deskripsi') is-invalid @enderror"
-                            required>{{ old('deskripsi') }}</textarea>
+                        <input type="number" value="{{ old('jumlah') ?? $siswa->sisa_bayar }}" name="jumlah"
+                            class="form-control @error('jumlah') is-invalid @enderror" required>
 
-                        @error('deskripsi')
+                        @error('jumlah')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
