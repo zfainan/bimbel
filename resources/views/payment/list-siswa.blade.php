@@ -1,5 +1,12 @@
 @extends('layouts.app')
 
+@section('breadcrumb')
+    <ol class="breadcrumb my-0">
+        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+        <li class="breadcrumb-item active">Pembayaran</li>
+    </ol>
+@endsection
+
 @section('content')
     <h1 class="h3 mb-3">Daftar Pembayaran Siswa</h1>
 

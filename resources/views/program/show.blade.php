@@ -1,7 +1,15 @@
 @extends('layouts.app')
 
+@section('breadcrumb')
+    <ol class="breadcrumb my-0">
+        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('program.index') }}">Program</a></li>
+        <li class="breadcrumb-item active">{{ $program->nama_program }}</li>
+    </ol>
+@endsection
+
 @section('content')
-    <h1 class="h3 mb-3">Detail Program {{ $program->nama }}</h1>
+    <h1 class="h3 mb-3">Detail Program</h1>
 
     @session('success')
         <div class="alert alert-success alert-dismissible fade show" role="alert">

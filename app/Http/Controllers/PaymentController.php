@@ -66,9 +66,15 @@ class PaymentController extends Controller
             return redirect()->route('siswa.payments.index', $siswa)->with('error', 'Siswa does not have program');
         }
 
-        $harga = $siswa->program->harga;
-        $sisaBayar = $harga - $siswa->payments->where('id_program', $siswa->id_program)
-            ->sum('jumlah') - $request->jumlah;
+        if ($siswa->sisa_bayar < 1) {
+            return redirect()->back()->with('error', "Siswa {$siswa->nama} telah melunasi tagihan pembayaran program")->withInput();
+        }
+
+        if ($siswa->sisa_bayar < $request->jumlah) {
+            return redirect()->back()->with('error', 'Pembayaran tidak dapat melebihi sisa tagihan siswa')->withInput();
+        }
+
+        $sisaBayar = $siswa->sisa_bayar - $request->jumlah;
 
         Payment::create([
             'jumlah' => $request->jumlah,

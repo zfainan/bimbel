@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('breadcrumb')
+    <ol class="breadcrumb my-0">
+        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('payments.list-siswa') }}">Pembayaran</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('siswa.payments.index', $siswa) }}">{{ $siswa->nama }}</a></li>
+        <li class="breadcrumb-item">Tambah Pembayaran</li>
+    </ol>
+@endsection
+
 @section('content')
     <h1 class="h3 mb-4">Tambah Pembayaran Siswa</h1>
 

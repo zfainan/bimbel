@@ -166,9 +166,7 @@
                 </div>
                 <div class="container-fluid px-4">
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb my-0">
-                            @yield('breadcrumb')
-                        </ol>
+                        @yield('breadcrumb')
                     </nav>
                 </div>
             </header>

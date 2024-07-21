@@ -1,9 +1,18 @@
 @extends('layouts.app')
 
+@section('breadcrumb')
+    <ol class="breadcrumb my-0">
+        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('siswa.index') }}">Siswa</a></li>
+        <li class="breadcrumb-item active" aria-current="page">{{ $siswa->nama }}</li>
+    </ol>
+@endsection
+
 @section('content')
     <div class="d-flex mb-4">
         <h1 class="h4 my-auto">Detail Siswa</h1>
-        <a href="{{ route('siswa.edit', $siswa) }}" class="btn btn-warning ms-auto my-auto"><i class="cil-pencil icon me-2"></i> Edit</a>
+        <a href="{{ route('siswa.edit', $siswa) }}" class="btn btn-warning my-auto ms-auto"><i
+                class="cil-pencil icon me-2"></i> Edit</a>
     </div>
     <div class="card">
         <div class="">

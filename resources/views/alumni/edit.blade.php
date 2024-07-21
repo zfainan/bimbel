@@ -1,5 +1,14 @@
 @extends('layouts.app')
 
+@section('breadcrumb')
+    <ol class="breadcrumb my-0">
+        <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('alumni.index') }}">Alumni</a></li>
+        <li class="breadcrumb-item">{{ $alumni->siswa->nama }}</li>
+        <li class="breadcrumb-item active" aria-current="page">Edit</li>
+    </ol>
+@endsection
+
 @section('content')
     <div class="card mb-4">
         <div class="card-header">
