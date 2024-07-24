@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\BelongsToBranch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -19,11 +20,15 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property      string                          $jam
  * @property      \Illuminate\Support\Carbon|null $created_at
  * @property      \Illuminate\Support\Carbon|null $updated_at
+ * @property      int|null                        $id_program
+ * @property      int|null                        $id_cabang
  * @property-read \App\Models\User|null           $tentor
+ * @property-read \App\Models\Program|null        $program
+ * @property-read \App\Models\Cabang|null         $branch
  */
 class JadwalAjar extends Model
 {
-    use HasFactory;
+    use BelongsToBranch, HasFactory;
 
     protected $table = 'jadwal_ajar';
 

@@ -14,11 +14,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('jadwal_ajar', function (Blueprint $table) {
-            $table->unsignedBigInteger('id_program')->nullable();
+            $table->unsignedBigInteger('id_cabang')->nullable();
 
-            $table->foreign('id_program')
-                ->references('id_program')
-                ->on('tb_program')
+            $table->foreign('id_cabang')
+                ->references('id_cabang')
+                ->on('tb_cabang')
                 ->onDelete('cascade');
         });
     }
@@ -29,7 +29,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('jadwal_ajar', function (Blueprint $table) {
-            $table->dropColumn('id_program');
+            $table->dropColumn('id_cabang');
         });
     }
 };

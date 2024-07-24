@@ -6,6 +6,7 @@ use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\CabangController;
 use App\Http\Controllers\JadwalAjarController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\PertemuanController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\UserController;
@@ -33,6 +34,11 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::resource('cabang', CabangController::class);
+
+    Route::get('jadwal', [PertemuanController::class, 'jadwal'])
+        ->name('jadwal.pertemuan');
+
+    Route::resource('jadwal.pertemuan', PertemuanController::class);
 
     Route::get('payments', [PaymentController::class, 'siswa'])
         ->name('payments.list-siswa');

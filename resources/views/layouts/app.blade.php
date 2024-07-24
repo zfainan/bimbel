@@ -46,6 +46,11 @@
                             <i class="cil-money icon icon-lg"></i>
                         </div> Pembayaran
                     </a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('jadwal.pertemuan') }}">
+                        <div class="nav-icon">
+                            <i class="fa fa-calendar icon icon-lg"></i>
+                        </div> Jadwal Pertemuan
+                    </a></li>
 
                 <li class="nav-divider"></li>
                 <li class="nav-title">Master Data</li>
@@ -201,7 +206,7 @@
                     <div class="modal-body">
                         Apakah Anda yakin ingin keluar?
                     </div>
-                    <form class="modal-footer" action="{{ 'logout' }}" method="POST">
+                    <form class="modal-footer" action="{{ route('logout') }}" method="POST">
                         @csrf
                         <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Batal</button>
                         <button type="submit" class="btn btn-primary">Logout</button>
