@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\CabangController;
+use App\Http\Controllers\JadwalAjarController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\SiswaController;
@@ -27,6 +28,8 @@ Route::middleware('auth')->group(function () {
         Route::resource('users', UserController::class);
 
         Route::resource('program', ProgramController::class);
+
+        Route::resource('jadwal-ajar', JadwalAjarController::class)->except(['show']);
     });
 
     Route::resource('cabang', CabangController::class);

@@ -14,6 +14,7 @@ enum RoleEnum: string
 
     case CentralHead = 'Pimpinan Pusat';
     case Administrator = 'Administrator';
+    case Tutor = 'Tentor';
 
     public static function getModelObjects(): Collection
     {

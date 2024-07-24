@@ -69,6 +69,11 @@
                             <i class="cil-book"></i>
                         </div> Program
                     </a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('jadwal-ajar.index') }}">
+                        <div class="nav-icon">
+                            <i class="cil-date"></i>
+                        </div> Jadwal Ajar
+                    </a></li>
 
                 <li class="nav-divider"></li>
                 <li class="nav-title">Sistem</li>

@@ -48,6 +48,7 @@
             "@php artisan migrate --graceful --ansi"
         ],
         "format": [
+            "@php artisan model-doc:generate",
             "./vendor/bin/pint"
         ]
     },
