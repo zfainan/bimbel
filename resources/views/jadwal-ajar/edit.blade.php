@@ -23,6 +23,8 @@
                     <label class="col-sm-2 col-form-label" for="id_tentor">Tentor<span class="text-danger">*</span></label>
                     <div class="col-sm-10">
                         <select name="id_tentor" class="form-control @error('id_tentor') is-invalid @enderror" required>
+                            <option selected value disabled>Pilih Tentor</option>
+
                             @foreach ($tentor as $item)
                                 <option @selected((old('id_tentor') ?? $jadwalAjar->id_tentor) == $item->id) value="{{ $item->id }}">{{ $item->name }}
                                 </option>
@@ -30,6 +32,27 @@
                         </select>
 
                         @error('id_tentor')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="id_program">Program<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-10">
+                        <select name="id_program" class="form-control @error('id_program') is-invalid @enderror" required>
+                            <option selected value disabled>Pilih Program</option>
+
+                            @foreach ($programs as $item)
+                                <option @selected((old('id_program') ?? $jadwalAjar->id_program) == $item->id_program) value="{{ $item->id_program }}">{{ $item->nama_program }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        @error('id_program')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

@@ -10,7 +10,8 @@
 @section('content')
     <div class="d-flex justify-content-between mb-3">
         <h1 class="h3">Daftar Jadwal Ajar</h1>
-            <a href="{{ route('jadwal-ajar.create') }}" class="btn btn-primary my-auto"><i class="cil-plus icon me-2"></i> Tambah Jadwal</a>
+        <a href="{{ route('jadwal-ajar.create') }}" class="btn btn-primary my-auto"><i class="cil-plus icon me-2"></i> Tambah
+            Jadwal</a>
     </div>
 
     @session('success')
@@ -34,6 +35,7 @@
                     <tr>
                         <th scope="col" class="text-center">#</th>
                         <th scope="col">Tentor</th>
+                        <th scope="col">Program</th>
                         <th scope="col">Hari</th>
                         <th scope="col">Jam</th>
                         <th scope="col" class="text-center">Aksi</th>
@@ -44,11 +46,12 @@
                         <tr>
                             <th scope="col" class="text-center">{{ $loop->iteration }}</th>
                             <td>{{ $item->tentor?->name }}</td>
+                            <td>{{ $item->program?->nama_program }}</td>
                             <td>{{ $item->hari }}</td>
                             <td>{{ $item->jam }}</td>
                             <td class="text-center">
-                                <a href="{{ route('jadwal-ajar.edit', $item) }}"
-                                    class="btn btn-outline-warning btn-sm"><i class="cil-pencil icon"></i></a>
+                                <a href="{{ route('jadwal-ajar.edit', $item) }}" class="btn btn-outline-warning btn-sm"><i
+                                        class="cil-pencil icon"></i></a>
                                 <form action="{{ route('jadwal-ajar.destroy', $item) }}" method="POST"
                                     style="display:inline-block;"
                                     onsubmit="return confirm('Anda yakin ingin menghapus jadwal?');">

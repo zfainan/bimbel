@@ -36,6 +36,24 @@
                 </div>
 
                 <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="id_program">Program<span class="text-danger">*</span></label>
+                    <div class="col-sm-10">
+                        <select name="id_program" class="form-control @error('id_program') is-invalid @enderror" required>
+                            @foreach ($programs as $item)
+                                <option @selected(old('id_program') == $item->id_program) value="{{ $item->id_program }}">{{ $item->nama_program }}
+                                </option>
+                            @endforeach
+                        </select>
+
+                        @error('id_program')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                </div>
+
+                <div class="row mb-3">
                     <label class="col-sm-2 col-form-label" for="hari">Hari<span class="text-danger">*</span></label>
                     <div class="col-sm-10">
                         <select name="hari" class="form-control @error('hari') is-invalid @enderror" required>

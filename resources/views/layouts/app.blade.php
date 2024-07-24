@@ -71,7 +71,7 @@
                     </a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('jadwal-ajar.index') }}">
                         <div class="nav-icon">
-                            <i class="cil-date"></i>
+                            <i class="cil-calendar"></i>
                         </div> Jadwal Ajar
                     </a></li>
 

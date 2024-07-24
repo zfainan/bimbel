@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Enums\DayEnum;
 use App\Enums\RoleEnum;
 use App\Models\JadwalAjar;
+use App\Models\Program;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rules\Enum;
@@ -18,7 +19,7 @@ class JadwalAjarController extends Controller
      */
     public function index()
     {
-        $data = JadwalAjar::with('tentor')
+        $data = JadwalAjar::with(['tentor', 'program'])
             ->latest()
             ->paginate();
 
@@ -31,11 +32,12 @@ class JadwalAjarController extends Controller
     public function create()
     {
         $days = DayEnum::toArray();
+        $programs = Program::latest()->get();
         $tentor = User::whereHas('jabatan', function ($query) {
             $query->where('role_name', RoleEnum::Tutor->value);
         })->get();
 
-        return view('jadwal-ajar.create', compact('days', 'tentor'));
+        return view('jadwal-ajar.create', compact('days', 'tentor', 'programs'));
     }
 
     /**
@@ -45,6 +47,7 @@ class JadwalAjarController extends Controller
     {
         $validated = $request->validate([
             'id_tentor' => 'required|exists:users,id',
+            'id_program' => 'required|exists:tb_program,id_program',
             'hari' => ['required', new Enum(DayEnum::class)],
             'jam' => 'required',
         ]);
@@ -61,11 +64,12 @@ class JadwalAjarController extends Controller
     public function edit(JadwalAjar $jadwalAjar)
     {
         $days = DayEnum::toArray();
+        $programs = Program::latest()->get();
         $tentor = User::whereHas('jabatan', function ($query) {
             $query->where('role_name', RoleEnum::Tutor->value);
         })->get();
 
-        return view('jadwal-ajar.edit', compact('jadwalAjar', 'days', 'tentor'));
+        return view('jadwal-ajar.edit', compact('jadwalAjar', 'days', 'tentor', 'programs'));
     }
 
     /**
@@ -75,6 +79,7 @@ class JadwalAjarController extends Controller
     {
         $validated = $request->validate([
             'id_tentor' => 'required|exists:users,id',
+            'id_program' => 'required|exists:tb_program,id_program',
             'hari' => ['required', new Enum(DayEnum::class)],
             'jam' => 'required',
         ]);

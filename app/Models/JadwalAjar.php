@@ -32,10 +32,15 @@ class JadwalAjar extends Model
      *
      * @var array
      */
-    protected $fillable = ['id_tentor', 'hari', 'jam'];
+    protected $fillable = ['id_tentor', 'hari', 'jam', 'id_program'];
 
     public function tentor(): BelongsTo
     {
         return $this->belongsTo(User::class, 'id_tentor', 'id');
+    }
+
+    public function program(): BelongsTo
+    {
+        return $this->belongsTo(Program::class, 'id_program', 'id_program');
     }
 }
