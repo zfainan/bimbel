@@ -4,9 +4,12 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\RoleEnum;
 use App\Models\JadwalAjar;
 use App\Models\Pertemuan;
+use App\Models\Presensi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PertemuanController extends Controller
 {
@@ -15,7 +18,13 @@ class PertemuanController extends Controller
      */
     public function jadwal()
     {
-        $data = JadwalAjar::where('id_tentor', auth()->user()->id)->get();
+        $query = JadwalAjar::with(['tentor', 'program']);
+
+        if (auth()->user()->jabatan?->role_name == RoleEnum::Tutor->value) {
+            $query->where('id_tentor', auth()->user()->id);
+        }
+
+        $data = $query->get();
 
         return view('pertemuan.jadwal', compact('data'));
     }
@@ -25,6 +34,13 @@ class PertemuanController extends Controller
      */
     public function index(Request $request, JadwalAjar $jadwal)
     {
+        if (
+            auth()->user()->jabatan?->role_name == RoleEnum::Tutor->value &&
+            auth()->user()->id != $jadwal->id_tentor
+        ) {
+            return redirect()->route('jadwal.pertemuan');
+        }
+
         $data = Pertemuan::where('id_jadwal', $jadwal->id)
             ->oldest()
             ->paginate();
@@ -37,6 +53,13 @@ class PertemuanController extends Controller
      */
     public function create(JadwalAjar $jadwal)
     {
+        if (
+            auth()->user()->jabatan?->role_name != RoleEnum::Tutor->value ||
+            auth()->user()->id != $jadwal->id_tentor
+        ) {
+            return redirect()->route('jadwal.pertemuan.index', $jadwal);
+        }
+
         return view('pertemuan.create', compact('jadwal'));
     }
 
@@ -45,12 +68,31 @@ class PertemuanController extends Controller
      */
     public function store(Request $request, JadwalAjar $jadwal)
     {
+        if (
+            auth()->user()->jabatan?->role_name != RoleEnum::Tutor->value ||
+            auth()->user()->id != $jadwal->id_tentor
+        ) {
+            return redirect()->route('jadwal.pertemuan.index', $jadwal);
+        }
+
         $request->validate(['tanggal' => 'required']);
 
-        Pertemuan::create([
-            'tanggal' => $request->tanggal,
-            'id_jadwal' => $jadwal->id,
-        ]);
+        DB::transaction(function () use ($request, $jadwal) {
+            $pertemuan = Pertemuan::create([
+                'tanggal' => $request->tanggal,
+                'id_jadwal' => $jadwal->id,
+            ]);
+
+            foreach ($jadwal->program->siswa as $value) {
+                Presensi::firstOrCreate([
+                    'id_pertemuan' => $pertemuan->id,
+                    'id_siswa' => $value->id_siswa,
+                ], [
+                    'waktu' => now(),
+                    'hadir' => false,
+                ]);
+            }
+        });
 
         return redirect()->route('jadwal.pertemuan.index', $jadwal)->with('success', 'Berhasil menambah pertemuan');
     }
@@ -60,7 +102,11 @@ class PertemuanController extends Controller
      */
     public function show(JadwalAjar $jadwal, Pertemuan $pertemuan)
     {
-        //
+        $hasEditAccess = auth()->user()->jabatan?->role_name == RoleEnum::Tutor->value &&
+            auth()->user()->id == $jadwal->id_tentor;
+        $pertemuan->load('presensi.siswa');
+
+        return view('pertemuan.show', compact('jadwal', 'pertemuan', 'hasEditAccess'));
     }
 
     /**
@@ -68,6 +114,13 @@ class PertemuanController extends Controller
      */
     public function edit(JadwalAjar $jadwal, Pertemuan $pertemuan)
     {
+        if (
+            auth()->user()->jabatan?->role_name != RoleEnum::Tutor->value ||
+            auth()->user()->id != $jadwal->id_tentor
+        ) {
+            return redirect()->route('jadwal.pertemuan.index', $jadwal);
+        }
+
         return view('pertemuan.edit', compact('jadwal', 'pertemuan'));
     }
 
@@ -76,6 +129,13 @@ class PertemuanController extends Controller
      */
     public function update(Request $request, JadwalAjar $jadwal, Pertemuan $pertemuan)
     {
+        if (
+            auth()->user()->jabatan?->role_name != RoleEnum::Tutor->value ||
+            auth()->user()->id != $jadwal->id_tentor
+        ) {
+            return redirect()->route('jadwal.pertemuan.index', $jadwal);
+        }
+
         $request->validate(['tanggal' => 'required']);
 
         $pertemuan->update([
@@ -91,6 +151,13 @@ class PertemuanController extends Controller
      */
     public function destroy(JadwalAjar $jadwal, Pertemuan $pertemuan)
     {
+        if (
+            auth()->user()->jabatan?->role_name != RoleEnum::Tutor->value ||
+            auth()->user()->id != $jadwal->id_tentor
+        ) {
+            return redirect()->route('jadwal.pertemuan.index', $jadwal);
+        }
+
         $pertemuan->delete();
 
         return redirect()->route('jadwal.pertemuan.index', $jadwal)->with('success', 'Berhasil menghapus pertemuan');

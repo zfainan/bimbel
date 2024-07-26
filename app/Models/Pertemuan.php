@@ -7,19 +7,23 @@ namespace App\Models;
 use App\Traits\BelongsToBranch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static \Database\Factories\PertemuanFactory<self> factory($count = null, $state = [])
  *
  * @mixin \Illuminate\Database\Eloquent\Model
  *
- * @property      int                             $id
- * @property      int|null                        $id_jadwal
- * @property      int|null                        $id_cabang
- * @property      string                          $tanggal
- * @property      \Illuminate\Support\Carbon|null $created_at
- * @property      \Illuminate\Support\Carbon|null $updated_at
- * @property-read \App\Models\Cabang|null         $branch
+ * @property      int                                                             $id
+ * @property      int|null                                                        $id_jadwal
+ * @property      int|null                                                        $id_cabang
+ * @property      string                                                          $tanggal
+ * @property      \Illuminate\Support\Carbon|null                                 $created_at
+ * @property      \Illuminate\Support\Carbon|null                                 $updated_at
+ * @property-read \App\Models\JadwalAjar|null                                     $jadwal
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Presensi[] $presensi
+ * @property-read \App\Models\Cabang|null                                         $branch
  */
 class Pertemuan extends Model
 {
@@ -33,4 +37,14 @@ class Pertemuan extends Model
      * @var array<string>
      */
     protected $fillable = ['tanggal', 'id_jadwal'];
+
+    public function jadwal(): BelongsTo
+    {
+        return $this->belongsTo(JadwalAjar::class, 'id_jadwal');
+    }
+
+    public function presensi(): HasMany
+    {
+        return $this->hasMany(Presensi::class, 'id_pertemuan');
+    }
 }

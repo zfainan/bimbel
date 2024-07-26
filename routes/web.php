@@ -7,6 +7,7 @@ use App\Http\Controllers\CabangController;
 use App\Http\Controllers\JadwalAjarController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PertemuanController;
+use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\ProgramController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\UserController;
@@ -50,6 +51,8 @@ Route::middleware('auth')->group(function () {
 
     Route::post('program/{program}/remove-siswa/{siswa}', [ProgramController::class, 'removeSiswa'])
         ->name('program.remove-siswa');
+
+    Route::post('presensi', [PresensiController::class, 'store'])->name('presensi.store');
 });
 
 Auth::routes();

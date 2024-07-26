@@ -30,6 +30,7 @@
                 <thead>
                     <tr>
                         <th scope="col" class="text-center">#</th>
+                        <th scope="col">Nama Tentor</th>
                         <th scope="col">Nama Program</th>
                         <th scope="col">Hari</th>
                         <th scope="col">Jam</th>
@@ -40,6 +41,7 @@
                     @foreach ($data as $item)
                         <tr>
                             <th scope="col" class="text-center">{{ $loop->iteration }}</th>
+                            <td>{{ $item->tentor?->name }}</td>
                             <td>{{ $item->program?->nama_program }}</td>
                             <td>{{ $item->hari }}</td>
                             <td>{{ $item->jam }}</td>

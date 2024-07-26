@@ -31,6 +31,7 @@
                     <tr>
                         <th scope="col" class="text-center">#</th>
                         <th scope="col">Nama</th>
+                        <th scope="col">Asal Sekolah</th>
                         <th scope="col">Angkatan</th>
                         <th scope="col">Nilai Ujian</th>
                         <th scope="col">Pendidikan Lanjutan</th>
@@ -42,6 +43,7 @@
                         <tr>
                             <th scope="col" class="text-center">{{ $loop->iteration }}</th>
                             <td>{{ $item->siswa->nama }}</td>
+                            <td>{{ $item->siswa->asal_sekolah }}</td>
                             <td>{{ $item->tahun_angkatan }}</td>
                             <td>{{ $item->nilai_ujian }}</td>
                             <td>{{ $item->pendidikan_lanjutan }}</td>

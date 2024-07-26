@@ -14,9 +14,12 @@
             <h1 class="h3">Daftar Pertemuan {{ $jadwal->program?->nama_program }}</h1>
             <p>{{ $jadwal->hari }} {{ $jadwal->jam }}</p>
         </div>
-        <a href="{{ route('jadwal.pertemuan.create', $jadwal) }}" class="btn btn-primary my-auto"><i
-                class="cil-plus icon me-2"></i> Tambah
-            Pertemuan</a>
+
+        @if (auth()->user()->jabatan?->role_name == \App\Enums\RoleEnum::Tutor->value)
+            <a href="{{ route('jadwal.pertemuan.create', $jadwal) }}" class="btn btn-primary my-auto"><i
+                    class="cil-plus icon me-2"></i> Tambah
+                Pertemuan</a>
+        @endif
     </div>
 
     @session('success')
@@ -54,23 +57,26 @@
                                     'pertemuan' => $item,
                                 ]) }}"
                                     class="btn btn-outline-info btn-sm"><i class="fa fa-eye"></i></a>
-                                <a href="{{ route('jadwal.pertemuan.edit', [
-                                    'jadwal' => $jadwal,
-                                    'pertemuan' => $item,
-                                ]) }}"
-                                    class="btn btn-outline-warning btn-sm"><i class="cil-pencil"></i></a>
-                                <form
-                                    action="{{ route('jadwal.pertemuan.destroy', [
+
+                                @if (auth()->user()->jabatan?->role_name == App\Enums\RoleEnum::Tutor->value)
+                                    <a href="{{ route('jadwal.pertemuan.edit', [
                                         'jadwal' => $jadwal,
                                         'pertemuan' => $item,
                                     ]) }}"
-                                    method="POST" style="display:inline-block;"
-                                    onsubmit="return confirm('Anda yakin ingin menghapus data pertemuan?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-outline-danger btn-sm"><i
-                                            class="cil-trash icon"></i></button>
-                                </form>
+                                        class="btn btn-outline-warning btn-sm"><i class="cil-pencil"></i></a>
+                                    <form
+                                        action="{{ route('jadwal.pertemuan.destroy', [
+                                            'jadwal' => $jadwal,
+                                            'pertemuan' => $item,
+                                        ]) }}"
+                                        method="POST" style="display:inline-block;"
+                                        onsubmit="return confirm('Anda yakin ingin menghapus data pertemuan?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger btn-sm"><i
+                                                class="cil-trash icon"></i></button>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

@@ -10,58 +10,32 @@ use Illuminate\Http\Request;
 class PresensiController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'id_pertemuan' => 'required|exists:pertemuan,id',
+            'siswa' => 'array|required',
+            'siswa.*.id' => 'exists:tb_siswa,id_siswa',
+            'siswa.*.hadir' => 'required|boolean',
+        ]);
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Presensi $presensi)
-    {
-        //
-    }
+        foreach ($request->get('siswa') as $value) {
+            $presensi = Presensi::firstOrCreate([
+                'id_pertemuan' => $request->id_pertemuan,
+                'id_siswa' => $value['id'],
+            ], [
+                'waktu' => now(),
+                'hadir' => (bool) $value['hadir'],
+            ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Presensi $presensi)
-    {
-        //
-    }
+            $presensi->update([
+                'waktu' => now(),
+                'hadir' => (bool) $value['hadir'],
+            ]);
+        }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Presensi $presensi)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Presensi $presensi)
-    {
-        //
+        return redirect()->back()->with('success', 'Berhasil update presensi');
     }
 }

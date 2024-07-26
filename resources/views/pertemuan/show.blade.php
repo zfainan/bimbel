@@ -3,13 +3,18 @@
 @section('breadcrumb')
     <ol class="breadcrumb my-0">
         <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('program.index') }}">Program</a></li>
-        <li class="breadcrumb-item active">{{ $program->nama_program }}</li>
+        <li class="breadcrumb-item"><a href="{{ route('jadwal.pertemuan') }}">Jadwal Pertemuan</a></li>
+        <li class="breadcrumb-item"><a
+                href="{{ route('jadwal.pertemuan.index', [
+                    'jadwal' => $jadwal,
+                ]) }}">{{ $pertemuan->jadwal->program?->nama_program }}</a>
+        </li>
+        <li class="breadcrumb-item active" aria-current="page">{{ $pertemuan->id }}</li>
     </ol>
 @endsection
 
 @section('content')
-    <h1 class="h3 mb-3">Detail Program</h1>
+    <h1 class="h3 mb-3">Detail Pertemuan</h1>
 
     @session('success')
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -25,30 +30,46 @@
         </div>
     @endsession
 
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <strong>Ada beberapa kesalahan validasi:</strong>
+            <ul class="mb-0">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <div class="pb-4 pt-2">
         <ul class="list-group">
             <li class="list-group-item">
                 <small>Nama Program</small>
-                <p class="mb-0">{{ $program->nama_program }}</p>
+                <p class="mb-0">{{ $pertemuan->jadwal?->program?->nama_program }}</p>
             </li>
             <li class="list-group-item">
-                <small>Harga program</small>
-                <p class="mb-0">{{ $program->harga }}</p>
+                <small>Tanggal</small>
+                <p class="mb-0">{{ $pertemuan->tanggal }}</p>
             </li>
             <li class="list-group-item">
-                <small>Deskripsi</small>
-                <p class="mb-0">{{ $program->deskripsi }}</p>
+                <small>Tentor</small>
+                <p class="mb-0">{{ $pertemuan->jadwal?->tentor?->name }}</p>
             </li>
         </ul>
     </div>
 
     <div class="card">
-        <div class="card-body">
+        <form class="card-body" method="POST" action="{{ route('presensi.store') }}">
+            @csrf
+
+            <input type="hidden" name="id_pertemuan" value="{{ $pertemuan->id }}">
+
             <div class="d-flex justify-content-between mb-4">
-                <h4 class="card-title">Daftar Siswa</h4>
-                <a href="#" class="btn btn-primary my-auto" data-coreui-toggle="modal"
-                    data-coreui-target="#addSiswaModal"><i class="cil-plus icon me-2"></i> Tambah
-                    Siswa</a>
+                <h4 class="card-title">Daftar Kehadiran</h4>
+                @if ($hasEditAccess)
+                    <button type="submit" class="btn btn-primary my-auto"><i class="cil-save icon me-2"></i>
+                        Simpan</button>
+                @endif
             </div>
 
             <div class="table-responsive">
@@ -57,75 +78,43 @@
                         <tr>
                             <th scope="col" class="text-center">#</th>
                             <th scope="col">Nama Siswa</th>
-                            <th scope="col">Kelas</th>
-                            <th scope="col" class="text-center">Aksi</th>
+                            <th scope="col">Status Kehadiran</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($program->siswa as $item)
+                        @foreach ($pertemuan?->presensi ?? [] as $item)
                             <tr>
                                 <th scope="col" class="text-center">{{ $loop->iteration }}</th>
-                                <td>{{ $item->nama }}</td>
-                                <td>{{ $item->kelas }}</td>
-                                <td class="text-center">
-                                    <form
-                                        action="{{ route('program.remove-siswa', [
-                                            'program' => $program,
-                                            'siswa' => $item,
-                                        ]) }}"
-                                        method="POST" style="display:inline-block;"
-                                        onsubmit="return confirm('Anda yakin ingin mengeluarkan siswa {{ $item->nama }}?');">
-                                        @csrf
-                                        <button type="submit" class="btn btn-outline-danger btn-sm"><i
-                                                class="cil-trash icon"></i></button>
-                                    </form>
+                                <td>{{ $item->siswa?->nama }}</td>
+                                <td class="d-flex">
+
+                                    <input type="hidden" name="siswa[{{ $loop->index }}][id]"
+                                        value="{{ $item->siswa?->id_siswa }}">
+
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio"
+                                            name="siswa[{{ $loop->index }}][hadir]" value="1" id="hadir1"
+                                            @checked((bool) $item->hadir) @disabled(!$hasEditAccess)>
+                                        <label class="form-check-label" for="hadir1">
+                                            Hadir
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check ms-4">
+                                        <input class="form-check-input" type="radio"
+                                            name="siswa[{{ $loop->index }}][hadir]" value="0" id="hadir2"
+                                            @checked(!(bool) $item->hadir) @disabled(!$hasEditAccess)>
+                                        <label class="form-check-label" for="hadir2">
+                                            Tidak Hadir
+                                        </label>
+                                    </div>
                                 </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
             </div>
-        </div>
-    </div>
-
-    <!-- Modal tambah siswa -->
-    <div class="modal fade" id="addSiswaModal" tabindex="-1" aria-labelledby="addSiswaModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-            <form class="modal-content" action="{{ route('program.add-siswa', $program) }}" method="POST">
-                @csrf
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addSiswaModalLabel">Pilih siswa</h5>
-                    <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="table-responsive p-3">
-                        <table class="w-100 table" id="addSiswaTable">
-                            <thead>
-                                <tr>
-                                    <th scope="col" class="no-sort">#</th>
-                                    <th scope="col">Nama Siswa</th>
-                                    <th scope="col">Kelas</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($siswa as $item)
-                                    <tr>
-                                        <td><input value="{{ $item->id_siswa }}" @checked($item->id_program == $program->id_program)
-                                                class="form-check-input" type="checkbox" name="siswa[]"></td>
-                                        <td>{{ $item->nama }}</td>
-                                        <td>{{ $item->kelas }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-            </form>
-        </div>
+        </form>
     </div>
 @endsection
 
