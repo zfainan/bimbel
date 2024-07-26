@@ -7,6 +7,7 @@ namespace App\Http\Controllers;
 use App\Enums\StatusBayarEnum;
 use App\Models\Payment;
 use App\Models\Siswa;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -88,35 +89,19 @@ class PaymentController extends Controller
         return redirect()->route('siswa.payments.index', $siswa)->with('success', 'Payment created succesfully');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Siswa $siswa, Payment $payment)
+    public function report(Request $request)
     {
-        //
-    }
+        $request->validate([
+            'since' => 'required|date',
+            'until' => 'required|date',
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Siswa $siswa, Payment $payment)
-    {
-        //
-    }
+        $data = Payment::with(['siswa', 'program'])
+            ->whereBetween('tanggal', [$request->since, $request->until])
+            ->get();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Siswa $siswa, Payment $payment)
-    {
-        //
-    }
+        $pdf = Pdf::loadView('payment.pdf', compact('data', 'request'));
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Siswa $siswa, Payment $payment)
-    {
-        //
+        return $pdf->download('payments.pdf');
     }
 }

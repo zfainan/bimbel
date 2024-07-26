@@ -44,6 +44,9 @@ Route::middleware('auth')->group(function () {
     Route::get('payments', [PaymentController::class, 'siswa'])
         ->name('payments.list-siswa');
 
+    Route::post('payments/generate/report', [PaymentController::class, 'report'])
+        ->name('payments.generate-report');
+
     Route::resource('siswa.payments', PaymentController::class);
 
     Route::post('program/{program}/add-siswa', [ProgramController::class, 'addSiswa'])
