@@ -87,6 +87,14 @@
                             <i class="fa-regular fa-building"></i>
                         </div> Cabang
                     </a></li>
+
+                <li class="nav-divider"></li>
+                <li class="nav-title">Laporan</li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('reports.payments.create') }}">
+                        <div class="nav-icon">
+                            <i class="fas fa-receipt"></i>
+                        </div> Pembayaran
+                    </a></li>
             </ul>
             <div class="sidebar-footer border-top d-none d-md-flex">
                 <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>

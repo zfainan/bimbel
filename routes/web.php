@@ -9,6 +9,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PertemuanController;
 use App\Http\Controllers\PresensiController;
 use App\Http\Controllers\ProgramController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
@@ -58,6 +59,13 @@ Route::middleware('auth')->group(function () {
         ->name('program.remove-siswa');
 
     Route::post('presensi', [PresensiController::class, 'store'])->name('presensi.store');
+
+    Route::prefix('reports')->group(function () {
+        Route::view('payments', 'reports.payments')
+            ->name('reports.payments.create');
+        Route::post('payments', [ReportController::class, 'payments'])
+            ->name('reports.payments');
+    });
 });
 
 Auth::routes();
