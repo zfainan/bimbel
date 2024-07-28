@@ -76,6 +76,7 @@
                         <th scope="col">Jumlah</th>
                         <th scope="col">Status</th>
                         <th scope="col">Sisa Bayar</th>
+                        <th scope="col">Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -86,6 +87,14 @@
                             <td>{{ $item->jumlah }}</td>
                             <td>{{ $item->status }}</td>
                             <td>{{ $item->sisa_bayar }}</td>
+                            <td>
+                                <form action="{{ route('payments.download', $item) }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="btn btn-light">
+                                        <i class="fa fa-save"></i>
+                                    </button>
+                                </form>
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>

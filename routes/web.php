@@ -49,6 +49,8 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('siswa.payments', PaymentController::class);
 
+    Route::post('payments/{payment}/download', [PaymentController::class, 'download'])->name('payments.download');
+
     Route::post('program/{program}/add-siswa', [ProgramController::class, 'addSiswa'])
         ->name('program.add-siswa');
 

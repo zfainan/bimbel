@@ -104,4 +104,11 @@ class PaymentController extends Controller
 
         return $pdf->download('payments.pdf');
     }
+
+    public function download(Payment $payment)
+    {
+        $pdf = Pdf::loadView('payment.download', compact('payment'));
+
+        return $pdf->download('faktur.pdf');
+    }
 }
