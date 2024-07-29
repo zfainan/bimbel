@@ -10,7 +10,11 @@
 @section('content')
     <div class="d-flex justify-content-between mb-3">
         <h1 class="h3">Daftar Siswa</h1>
-            <a href="{{ route('siswa.create') }}" class="btn btn-primary my-auto"><i class="cil-plus icon me-2"></i> Tambah Siswa</a>
+
+        @if (auth()->user()->jabatan?->role_name == App\Enums\RoleEnum::Administrator->value)
+            <a href="{{ route('siswa.create') }}" class="btn btn-primary my-auto"><i class="cil-plus icon me-2"></i> Tambah
+                Siswa</a>
+        @endif
     </div>
 
     @session('success')
@@ -49,19 +53,23 @@
                             <td>{{ $item->kelas }}</td>
                             <td>{{ $item->status }}</td>
                             <td class="text-center">
-                                <a href="{{ route('siswa.show', $item->id_siswa) }}"class="btn-detail btn btn-outline-info btn-sm">
+                                <a
+                                    href="{{ route('siswa.show', $item->id_siswa) }}"class="btn-detail btn btn-outline-info btn-sm">
                                     <i class='fa fa-eye'></i>
                                 </a>
-                                <a href="{{ route('siswa.edit', $item->id_siswa) }}"
-                                    class="btn btn-outline-warning btn-sm"><i class="cil-pencil icon"></i></a>
-                                <form action="{{ route('siswa.destroy', $item->id_siswa) }}" method="POST"
-                                    style="display:inline-block;"
-                                    onsubmit="return confirm('Anda yakin ingin menghapus data siswa {{ $item->nama }}?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-outline-danger btn-sm"><i
-                                            class="cil-trash icon"></i></button>
-                                </form>
+
+                                @if (auth()->user()->jabatan?->role_name == App\Enums\RoleEnum::Administrator->value)
+                                    <a href="{{ route('siswa.edit', $item->id_siswa) }}"
+                                        class="btn btn-outline-warning btn-sm"><i class="cil-pencil icon"></i></a>
+                                    <form action="{{ route('siswa.destroy', $item->id_siswa) }}" method="POST"
+                                        style="display:inline-block;"
+                                        onsubmit="return confirm('Anda yakin ingin menghapus data siswa {{ $item->nama }}?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger btn-sm"><i
+                                                class="cil-trash icon"></i></button>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

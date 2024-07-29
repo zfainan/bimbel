@@ -10,8 +10,11 @@
 @section('content')
     <div class="d-flex justify-content-between mb-3">
         <h1 class="h3">Daftar Program</h1>
-        <a href="{{ route('program.create') }}" class="btn btn-primary my-auto"><i class="cil-plus icon me-2"></i> Tambah
-            Program</a>
+
+        @if (auth()->user()->jabatan?->role_name == App\Enums\RoleEnum::Administrator->value)
+            <a href="{{ route('program.create') }}" class="btn btn-primary my-auto"><i class="cil-plus icon me-2"></i> Tambah
+                Program</a>
+        @endif
     </div>
 
     @session('success')
@@ -50,16 +53,19 @@
                             <td class="text-center">
                                 <a href="{{ route('program.show', $item->id_program) }}"
                                     class="btn btn-outline-info btn-sm"><i class="fa fa-eye"></i></a>
-                                <a href="{{ route('program.edit', $item->id_program) }}"
-                                    class="btn btn-outline-warning btn-sm"><i class="cil-pencil icon"></i></a>
-                                <form action="{{ route('program.destroy', $item->id_program) }}" method="POST"
-                                    style="display:inline-block;"
-                                    onsubmit="return confirm('Anda yakin ingin menghapus data program {{ $item->nama_program }}?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-outline-danger btn-sm"><i
-                                            class="cil-trash icon"></i></button>
-                                </form>
+
+                                @if (auth()->user()->jabatan?->role_name == App\Enums\RoleEnum::Administrator->value)
+                                    <a href="{{ route('program.edit', $item->id_program) }}"
+                                        class="btn btn-outline-warning btn-sm"><i class="cil-pencil icon"></i></a>
+                                    <form action="{{ route('program.destroy', $item->id_program) }}" method="POST"
+                                        style="display:inline-block;"
+                                        onsubmit="return confirm('Anda yakin ingin menghapus data program {{ $item->nama_program }}?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger btn-sm"><i
+                                                class="cil-trash icon"></i></button>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

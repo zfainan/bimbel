@@ -11,8 +11,11 @@
 @section('content')
     <div class="d-flex mb-4">
         <h1 class="h4 my-auto">Detail Siswa</h1>
-        <a href="{{ route('siswa.edit', $siswa) }}" class="btn btn-warning my-auto ms-auto"><i
-                class="cil-pencil icon me-2"></i> Edit</a>
+
+        @if (auth()->user()->jabatan?->role_name == App\Enums\RoleEnum::Administrator->value)
+            <a href="{{ route('siswa.edit', $siswa) }}" class="btn btn-warning my-auto ms-auto"><i
+                    class="cil-pencil icon me-2"></i> Edit</a>
+        @endif
     </div>
     <div class="card">
         <div class="">

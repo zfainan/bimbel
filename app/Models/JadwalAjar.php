@@ -15,17 +15,18 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  *
  * @mixin \Illuminate\Database\Eloquent\Model
  *
- * @property      int                             $id
- * @property      int                             $id_tentor
- * @property      string                          $hari
- * @property      string                          $jam
- * @property      \Illuminate\Support\Carbon|null $created_at
- * @property      \Illuminate\Support\Carbon|null $updated_at
- * @property      int|null                        $id_program
- * @property      int|null                        $id_cabang
- * @property-read \App\Models\User|null           $tentor
- * @property-read \App\Models\Program|null        $program
- * @property-read \App\Models\Cabang|null         $branch
+ * @property      int                                                              $id
+ * @property      int                                                              $id_tentor
+ * @property      string                                                           $hari
+ * @property      string                                                           $jam
+ * @property      \Illuminate\Support\Carbon|null                                  $created_at
+ * @property      \Illuminate\Support\Carbon|null                                  $updated_at
+ * @property      int|null                                                         $id_program
+ * @property      int|null                                                         $id_cabang
+ * @property-read \App\Models\User|null                                            $tentor
+ * @property-read \App\Models\Program|null                                         $program
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Pertemuan[] $pertemuan
+ * @property-read \App\Models\Cabang|null                                          $branch
  */
 class JadwalAjar extends Model
 {

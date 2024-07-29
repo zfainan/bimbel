@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\RoleEnum;
 use App\Enums\StatusSiswaEnum;
 use App\Models\Program;
 use App\Models\Siswa;
@@ -12,6 +13,16 @@ use Illuminate\Support\Facades\DB;
 
 class ProgramController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(
+            sprintf('role:%s|%s', RoleEnum::Administrator->value, RoleEnum::CentralHead->value)
+        )->only(['index', 'show']);
+        $this->middleware(
+            sprintf('role:%s', RoleEnum::Administrator->value)
+        )->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      */

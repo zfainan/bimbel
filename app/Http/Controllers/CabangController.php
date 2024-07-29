@@ -4,11 +4,19 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\RoleEnum;
 use App\Models\Cabang;
 use Illuminate\Http\Request;
 
 class CabangController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(
+            sprintf('role:%s', RoleEnum::CentralHead->value)
+        )->only('index');
+    }
+
     /**
      * Display a listing of the resource.
      */

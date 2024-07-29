@@ -80,7 +80,7 @@ Route::middleware('auth')->group(function () {
 
         // laporan alumni
         Route::view('alumni', 'reports.alumni.create')
-        ->name('reports.alumni.create');
+            ->name('reports.alumni.create');
         Route::post('alumni', [ReportController::class, 'downloadAlumni'])
             ->name('reports.alumni');
     });

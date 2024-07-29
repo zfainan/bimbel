@@ -16,6 +16,13 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(
+            sprintf('role:%s', RoleEnum::CentralHead->value)
+        );
+    }
+
     public function downloadPayments(Request $request)
     {
         $request->validate([

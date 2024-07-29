@@ -14,6 +14,13 @@ use Illuminate\Validation\Rules\Enum;
 
 class JadwalAjarController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(
+            sprintf('role:%s', RoleEnum::Administrator->value)
+        );
+    }
+
     /**
      * Display a listing of the resource.
      */

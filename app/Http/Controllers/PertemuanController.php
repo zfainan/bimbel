@@ -13,6 +13,17 @@ use Illuminate\Support\Facades\DB;
 
 class PertemuanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(
+            sprintf('role:%s|%s', RoleEnum::Tutor->value, RoleEnum::Administrator->value)
+        )->only(['jadwal', 'index', 'show']);
+
+        $this->middleware(
+            sprintf('role:%s', RoleEnum::Tutor->value)
+        )->except(['jadwal', 'index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      */

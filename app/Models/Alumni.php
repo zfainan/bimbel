@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Models;
 
+use App\Traits\BelongsToBranch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -22,10 +23,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  * @property      \Illuminate\Support\Carbon|null $created_at
  * @property      \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\Siswa|null          $siswa
+ * @property-read \App\Models\Cabang|null         $branch
  */
 class Alumni extends Model
 {
-    use HasFactory;
+    use BelongsToBranch, HasFactory;
 
     protected $table = 'tb_alumni';
 

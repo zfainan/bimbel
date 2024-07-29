@@ -11,8 +11,11 @@
 @section('content')
     <div class="d-flex justify-content-between mb-3">
         <h1 class="h3">Daftar Pembayaran Siswa</h1>
-        <a href="{{ route('siswa.payments.create', $siswa) }}" class="btn btn-primary my-auto"><i
-                class="cil-plus icon me-2"></i> Tambah Pembayaran</a>
+
+        @if (auth()->user()->jabatan?->role_name == App\Enums\RoleEnum::Administrator->value)
+            <a href="{{ route('siswa.payments.create', $siswa) }}" class="btn btn-primary my-auto"><i
+                    class="cil-plus icon me-2"></i> Tambah Pembayaran</a>
+        @endif
     </div>
 
     @session('success')

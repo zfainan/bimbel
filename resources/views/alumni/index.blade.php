@@ -48,16 +48,18 @@
                             <td>{{ $item->nilai_ujian }}</td>
                             <td>{{ $item->pendidikan_lanjutan }}</td>
                             <td class="text-center">
-                                <a href="{{ route('alumni.edit', $item->id_alumni) }}"
-                                    class="btn btn-outline-warning btn-sm"><i class="cil-pencil icon"></i></a>
-                                <form action="{{ route('alumni.destroy', $item->id_alumni) }}" method="POST"
-                                    style="display:inline-block;"
-                                    onsubmit="return confirm('Anda yakin ingin menghapus data alumni {{ $item->siswa->nama }}?');">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="btn btn-outline-danger btn-sm"><i
-                                            class="cil-trash icon"></i></button>
-                                </form>
+                                @if (auth()->user()->jabatan?->role_name == App\Enums\RoleEnum::Administrator->value)
+                                    <a href="{{ route('alumni.edit', $item->id_alumni) }}"
+                                        class="btn btn-outline-warning btn-sm"><i class="cil-pencil icon"></i></a>
+                                    <form action="{{ route('alumni.destroy', $item->id_alumni) }}" method="POST"
+                                        style="display:inline-block;"
+                                        onsubmit="return confirm('Anda yakin ingin menghapus data alumni {{ $item->siswa->nama }}?');">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-outline-danger btn-sm"><i
+                                                class="cil-trash icon"></i></button>
+                                    </form>
+                                @endif
                             </td>
                         </tr>
                     @endforeach

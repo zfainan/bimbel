@@ -77,8 +77,7 @@
                         <select name="id_jabatan" class="form-select @error('id_jabatan') is-invalid @enderror" required>
                             <option value="">Pilih Jabatan</option>
                             @foreach ($jabatan as $item)
-                                <option value="{{ $item->id_jabatan }}"
-                                    {{ $item->id_jabatan == $user->id_jabatan ? 'selected' : '' }}>
+                                <option value="{{ $item->id_jabatan }}" @selected((old('id_jabatan') ?? $item->id_jabatan) == $user->id_jabatan)>
                                     {{ $item->role_name }}
                                 </option>
                             @endforeach
@@ -92,6 +91,28 @@
                     </div>
                 </div>
 
+                @if (auth()->user()->jabatan?->role_name == App\Enums\RoleEnum::CentralHead->value)
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label" for="id_cabang">Cabang<span
+                                class="text-danger">*</span></label>
+                        <div class="col-sm-10">
+                            <select name="id_cabang" class="form-select @error('id_cabang') is-invalid @enderror" required>
+                                <option value="">Pilih Cabang</option>
+                                @foreach ($cabang as $item)
+                                    <option value="{{ $item->id_cabang }}" @selected((old('id_cabang') ?? $item->id_cabang) == $user->id_cabang)>
+                                        {{ $item->nama }}</option>
+                                @endforeach
+                            </select>
+
+                            @error('id_cabang')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                    </div>
+                @endif
+
                 <div class="row mb-3">
                     <div class="col-sm-10 ms-auto">
                         <button type="submit" class="btn btn-primary">Simpan</button>
@@ -100,4 +121,26 @@
             </form>
         </div>
     </div>
+
+    <script>
+        document
+            .querySelector('select[name="id_jabatan"]')
+            .addEventListener('change', (value) => {
+                $selectCabang = document.querySelector('select[name="id_cabang"]')
+
+                if ($selectCabang && value.target.value == '{{ $jabatanKepala?->id_jabatan }}') {
+                    $selectCabang.setAttribute('disabled', true)
+                } else {
+                    $selectCabang.removeAttribute('disabled')
+                }
+            })
+
+        $currentSelectCabang = document.querySelector('select[name="id_cabang"]')
+
+        if ($currentSelectCabang && '{{ $user->jabatan?->id_jabatan }}' == '{{ $jabatanKepala?->id_jabatan }}') {
+            $currentSelectCabang.setAttribute('disabled', true)
+        } else {
+            $currentSelectCabang.removeAttribute('disabled')
+        }
+    </script>
 @endsection

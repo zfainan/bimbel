@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\RoleEnum;
 use App\Enums\StatusBayarEnum;
 use App\Models\Payment;
 use App\Models\Siswa;
@@ -13,6 +14,17 @@ use Illuminate\Http\Request;
 
 class PaymentController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(
+            sprintf('role:%s|%s', RoleEnum::Administrator->value, RoleEnum::CentralHead->value)
+        )->only(['siswa', 'index', 'download', 'report']);
+
+        $this->middleware(
+            sprintf('role:%s', RoleEnum::Administrator->value)
+        )->except(['siswa', 'index', 'download', 'report']);
+    }
+
     public function siswa(Request $request)
     {
         $siswa = Siswa::when($request->filled('keyword'), function (Builder $query) {

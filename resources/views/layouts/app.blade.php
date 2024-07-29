@@ -24,12 +24,7 @@
         <div class="sidebar sidebar-dark sidebar-fixed border-end" id="sidebar">
             <div class="sidebar-header border-bottom">
                 <div class="sidebar-brand">
-                    <svg class="sidebar-brand-full" width="88" height="32" alt="CoreUI Logo">
-                        <use xlink:href="/assets/brand/coreui.svg#full"></use>
-                    </svg>
-                    <svg class="sidebar-brand-narrow" width="32" height="32" alt="CoreUI Logo">
-                        <use xlink:href="/assets/brand/coreui.svg#signet"></use>
-                    </svg>
+                    <span class="h5">Smartgama</span>
                 </div>
                 <button class="btn-close d-lg-none" type="button" data-coreui-dismiss="offcanvas"
                     data-coreui-theme="dark" aria-label="Close"
@@ -41,70 +36,83 @@
                             <i class="cil-speedometer icon icon-lg"></i>
                         </div> Dashboard
                     </a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('payments.list-siswa') }}">
-                        <div class="nav-icon">
-                            <i class="cil-money icon icon-lg"></i>
-                        </div> Pembayaran
-                    </a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('jadwal.pertemuan') }}">
-                        <div class="nav-icon">
-                            <i class="fa fa-calendar icon icon-lg"></i>
-                        </div> Jadwal Pertemuan
-                    </a></li>
 
-                <li class="nav-divider"></li>
-                <li class="nav-title">Master Data</li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('siswa.index') }}">
-                        <div class="nav-icon">
-                            <i class="fa fa-child"></i>
-                        </div> Siswa
-                    </a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('alumni.index') }}">
-                        <div class="nav-icon">
-                            <i class="fa fa-user-graduate"></i>
-                        </div> Alumni
-                    </a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">
-                        <div class="nav-icon">
-                            <i class="cil-people"></i>
-                        </div> Users
-                    </a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('program.index') }}">
-                        <div class="nav-icon">
-                            <i class="cil-book"></i>
-                        </div> Program
-                    </a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('jadwal-ajar.index') }}">
-                        <div class="nav-icon">
-                            <i class="cil-calendar"></i>
-                        </div> Jadwal Ajar
-                    </a></li>
+                @if (auth()->user()->jabatan?->role_name != App\Enums\RoleEnum::Tutor->value)
+                    <li class="nav-item"><a class="nav-link" href="{{ route('payments.list-siswa') }}">
+                            <div class="nav-icon">
+                                <i class="cil-money icon icon-lg"></i>
+                            </div> Pembayaran
+                        </a></li>
+                @endif
 
-                <li class="nav-divider"></li>
-                <li class="nav-title">Sistem</li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('cabang.index') }}">
-                        <div class="nav-icon">
-                            <i class="fa-regular fa-building"></i>
-                        </div> Cabang
-                    </a></li>
+                @if (auth()->user()->jabatan?->role_name != App\Enums\RoleEnum::CentralHead->value)
+                    <li class="nav-item"><a class="nav-link" href="{{ route('jadwal.pertemuan') }}">
+                            <div class="nav-icon">
+                                <i class="fa fa-calendar icon icon-lg"></i>
+                            </div> Jadwal Pertemuan
+                        </a></li>
+                @endif
 
-                <li class="nav-divider"></li>
-                <li class="nav-title">Laporan</li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('reports.payments.create') }}">
-                        <div class="nav-icon">
-                            <i class="fas fa-receipt"></i>
-                        </div> Pembayaran
-                    </a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('reports.presensi.create') }}">
-                        <div class="nav-icon">
-                            <i class="fas fa-receipt"></i>
-                        </div> Presensi
-                    </a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('reports.alumni.create') }}">
-                        <div class="nav-icon">
-                            <i class="fas fa-receipt"></i>
-                        </div> Alumni
-                    </a></li>
+                @if (auth()->user()->jabatan?->role_name != App\Enums\RoleEnum::Tutor->value)
+                    <li class="nav-divider"></li>
+                    <li class="nav-title">Master Data</li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('siswa.index') }}">
+                            <div class="nav-icon">
+                                <i class="fa fa-child"></i>
+                            </div> Siswa
+                        </a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('alumni.index') }}">
+                            <div class="nav-icon">
+                                <i class="fa fa-user-graduate"></i>
+                            </div> Alumni
+                        </a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">
+                            <div class="nav-icon">
+                                <i class="cil-people"></i>
+                            </div> Users
+                        </a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('program.index') }}">
+                            <div class="nav-icon">
+                                <i class="cil-book"></i>
+                            </div> Program
+                        </a></li>
+
+                    @if (auth()->user()->jabatan?->role_name == App\Enums\RoleEnum::Administrator->value)
+                        <li class="nav-item"><a class="nav-link" href="{{ route('jadwal-ajar.index') }}">
+                                <div class="nav-icon">
+                                    <i class="cil-calendar"></i>
+                                </div> Jadwal Ajar
+                            </a></li>
+                    @else
+                        <li class="nav-divider"></li>
+                        <li class="nav-title">Sistem</li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('cabang.index') }}">
+                                <div class="nav-icon">
+                                    <i class="fa-regular fa-building"></i>
+                                </div> Cabang
+                            </a></li>
+
+                        <li class="nav-divider"></li>
+                        <li class="nav-title">Laporan</li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('reports.payments.create') }}">
+                                <div class="nav-icon">
+                                    <i class="fas fa-receipt"></i>
+                                </div> Pembayaran
+                            </a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('reports.presensi.create') }}">
+                                <div class="nav-icon">
+                                    <i class="fas fa-receipt"></i>
+                                </div> Presensi
+                            </a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('reports.alumni.create') }}">
+                                <div class="nav-icon">
+                                    <i class="fas fa-receipt"></i>
+                                </div> Alumni
+                            </a></li>
+                    @endif
+
+                @endif
+
             </ul>
             <div class="sidebar-footer border-top d-none d-md-flex">
                 <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
@@ -171,16 +179,14 @@
                                         alt="user@email.com"></div>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end pt-0">
-                                <div
-                                    class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2">
-                                    <div class="fw-semibold">Account</div>
+                                <div class="dropdown-header bg-body-tertiary text-body-secondary rounded-top mb-2">
+                                    <div>
+                                        <p class="fw-semibold h6 mb-0">{{ auth()->user()->name }}</p>
+                                        <span>{{ auth()->user()->jabatan?->role_name }}</span> <br>
+                                        <span>{{ auth()->user()->branch?->nama }}</span>
+                                    </div>
                                 </div>
-                                {{-- <a class="dropdown-item" href="#">
-                                    <div class="icon me-2">
-                                        <i class="cil-user"></i>
-                                    </div> Profile
-                                </a>
-                                <div class="dropdown-divider"></div> --}}
+
                                 <a class="dropdown-item" href="#" data-coreui-toggle="modal"
                                     data-coreui-target="#logoutModal">
                                     <div class="icon me-2">

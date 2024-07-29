@@ -4,12 +4,23 @@ declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
+use App\Enums\RoleEnum;
 use App\Models\Alumni;
 use App\Models\Siswa;
 use Illuminate\Http\Request;
 
 class AlumniController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware(
+            sprintf('role:%s|%s', RoleEnum::Administrator->value, RoleEnum::CentralHead->value)
+        )->only(['index', 'show']);
+        $this->middleware(
+            sprintf('role:%s', RoleEnum::Administrator->value)
+        )->except(['index', 'show']);
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -51,15 +62,6 @@ class AlumniController extends Controller
             'pendidikan_lanjutan' => 'required|string|max:20',
             'tahun_angkatan' => 'required|string|max:10',
         ]);
-
-        if (
-            $request->id_siswa != $alumnus->id_siswa &&
-            Siswa::findOrFail($request->id_siswa)->alumni?->id_alumni
-        ) {
-            return redirect()->back()
-                ->withErrors(['id_siswa' => 'Siswa telah memiliki data alumni'])
-                ->withInput();
-        }
 
         $alumnus->update($request->all());
 
