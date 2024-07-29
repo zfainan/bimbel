@@ -5,7 +5,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Data Pembayaran</title>
+        <title>Data Alumni</title>
 
         <style>
             .table {
@@ -56,10 +56,10 @@
 
         <hr>
 
-        <h3>Data Pembayaran</h3>
+        <h3>Data Alumni</h3>
 
         <p>Dengan hormat,</p>
-        <p>Berikut ini adalah daftar data pembayaran:</p>
+        <p>Berikut ini adalah daftar data alumni:</p>
 
         <table class="table">
             @if ($request->filled('since'))
@@ -88,23 +88,21 @@
         <table class="table-border table">
             <thead>
                 <tr>
-                    <th>Siswa</th>
-                    <th>Program</th>
-                    <th>Cabang</th>
-                    <th>Jumlah</th>
-                    <th>Tanggal</th>
-                    <th>Status</th>
+                    <th>Nama</th>
+                    <th>Asal Sekolah</th>
+                    <th>Angkatan</th>
+                    <th>Nilai Ujian</th>
+                    <th>Pendidikan Lanjutan</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($data as $item)
+                @foreach ($data as $alumni)
                     <tr>
-                        <td>{{ $item->siswa?->nama }}</td>
-                        <td>{{ $item->program?->nama_program }}</td>
-                        <td>{{ $item->siswa?->branch?->nama ?? '-' }}</td>
-                        <td>Rp {{ $item->jumlah }}</td>
-                        <td>{{ $item->tanggal }}</td>
-                        <td>{{ $item->status }}</td>
+                        <td>{{ $alumni->siswa?->nama }}</td>
+                        <td>{{ $alumni->siswa?->asal_sekolah }}</td>
+                        <td>{{ $alumni->tahun_angkatan }}</td>
+                        <td>{{ $alumni->nilai_ujian }}</td>
+                        <td>{{ $alumni->pendidikan_lanjutan }}</td>
                     </tr>
                 @endforeach
             </tbody>

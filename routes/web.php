@@ -69,14 +69,20 @@ Route::middleware('auth')->group(function () {
         // laporan pembayaran
         Route::view('payments', 'reports.payments')
             ->name('reports.payments.create');
-        Route::post('payments', [ReportController::class, 'payments'])
+        Route::post('payments', [ReportController::class, 'downloadPayments'])
             ->name('reports.payments');
 
         // laporan presensi
-        Route::post('presensi', [ReportController::class, 'generatePresensi'])
-        ->name('reports.presensi');
+        Route::post('presensi', [ReportController::class, 'downloadPresensi'])
+            ->name('reports.presensi');
         Route::get('presensi', [ReportController::class, 'createPresensi'])
             ->name('reports.presensi.create');
+
+        // laporan alumni
+        Route::view('alumni', 'reports.alumni.create')
+        ->name('reports.alumni.create');
+        Route::post('alumni', [ReportController::class, 'downloadAlumni'])
+            ->name('reports.alumni');
     });
 });
 

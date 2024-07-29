@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Http\Controllers;
 
 use App\Enums\RoleEnum;
+use App\Models\Alumni;
 use App\Models\JadwalAjar;
 use App\Models\Payment;
 use App\Models\Pertemuan;
@@ -15,7 +16,7 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    public function payments(Request $request)
+    public function downloadPayments(Request $request)
     {
         $request->validate([
             'since' => 'required|date',
@@ -56,7 +57,7 @@ class ReportController extends Controller
         return view('reports.presensi.create', compact('tentor', 'jadwal', 'selectedTentor'));
     }
 
-    public function generatePresensi(Request $request)
+    public function downloadPresensi(Request $request)
     {
         $request->validate([
             'id_jadwal' => 'required|exists:jadwal_ajar,id',
@@ -73,5 +74,21 @@ class ReportController extends Controller
         $pdf = Pdf::loadView('reports.presensi.pdf', compact('data', 'jadwal'));
 
         return $pdf->download('presensi.pdf');
+    }
+
+    public function downloadAlumni(Request $request)
+    {
+        $request->validate([
+            'since' => 'required|date',
+            'until' => 'required|date',
+        ]);
+
+        $data = Alumni::with(['siswa'])
+            ->whereBetween('created_at', [$request->since, $request->until])
+            ->get();
+
+        $pdf = Pdf::loadView('reports.alumni.pdf', compact('data', 'request'));
+
+        return $pdf->download('alumni.pdf');
     }
 }
