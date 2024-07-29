@@ -8,6 +8,7 @@ use App\Traits\BelongsToBranch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * @method static \Database\Factories\JadwalAjarFactory<self> factory($count = null, $state = [])
@@ -47,5 +48,10 @@ class JadwalAjar extends Model
     public function program(): BelongsTo
     {
         return $this->belongsTo(Program::class, 'id_program', 'id_program');
+    }
+
+    public function pertemuan(): HasMany
+    {
+        return $this->hasMany(Pertemuan::class, 'id_jadwal');
     }
 }

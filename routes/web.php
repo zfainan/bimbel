@@ -37,34 +37,46 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('cabang', CabangController::class);
 
+    // jadwal pertemuan
     Route::get('jadwal', [PertemuanController::class, 'jadwal'])
         ->name('jadwal.pertemuan');
 
     Route::resource('jadwal.pertemuan', PertemuanController::class);
 
+    // pembayaran
     Route::get('payments', [PaymentController::class, 'siswa'])
         ->name('payments.list-siswa');
 
     Route::post('payments/generate/report', [PaymentController::class, 'report'])
         ->name('payments.generate-report');
 
+    // pembayaran program per siswa
     Route::resource('siswa.payments', PaymentController::class);
 
     Route::post('payments/{payment}/download', [PaymentController::class, 'download'])->name('payments.download');
 
+    // siswa pada program
     Route::post('program/{program}/add-siswa', [ProgramController::class, 'addSiswa'])
         ->name('program.add-siswa');
 
     Route::post('program/{program}/remove-siswa/{siswa}', [ProgramController::class, 'removeSiswa'])
         ->name('program.remove-siswa');
 
+    // presensi
     Route::post('presensi', [PresensiController::class, 'store'])->name('presensi.store');
 
     Route::prefix('reports')->group(function () {
+        // laporan pembayaran
         Route::view('payments', 'reports.payments')
             ->name('reports.payments.create');
         Route::post('payments', [ReportController::class, 'payments'])
             ->name('reports.payments');
+
+        // laporan presensi
+        Route::post('presensi', [ReportController::class, 'generatePresensi'])
+        ->name('reports.presensi');
+        Route::get('presensi', [ReportController::class, 'createPresensi'])
+            ->name('reports.presensi.create');
     });
 });
 

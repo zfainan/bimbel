@@ -95,6 +95,11 @@
                             <i class="fas fa-receipt"></i>
                         </div> Pembayaran
                     </a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('reports.presensi.create') }}">
+                        <div class="nav-icon">
+                            <i class="fas fa-receipt"></i>
+                        </div> Presensi
+                    </a></li>
             </ul>
             <div class="sidebar-footer border-top d-none d-md-flex">
                 <button class="sidebar-toggler" type="button" data-coreui-toggle="unfoldable"></button>
