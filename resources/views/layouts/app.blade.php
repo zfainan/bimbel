@@ -37,14 +37,6 @@
                         </div> Dashboard
                     </a></li>
 
-                @if (auth()->user()->jabatan?->role_name != App\Enums\RoleEnum::Tutor->value)
-                    <li class="nav-item"><a class="nav-link" href="{{ route('payments.list-siswa') }}">
-                            <div class="nav-icon">
-                                <i class="cil-money icon icon-lg"></i>
-                            </div> Pembayaran
-                        </a></li>
-                @endif
-
                 @if (auth()->user()->jabatan?->role_name != App\Enums\RoleEnum::CentralHead->value)
                     <li class="nav-item"><a class="nav-link" href="{{ route('jadwal.pertemuan') }}">
                             <div class="nav-icon">
@@ -55,33 +47,65 @@
 
                 @if (auth()->user()->jabatan?->role_name != App\Enums\RoleEnum::Tutor->value)
                     <li class="nav-divider"></li>
+                    <li class="nav-title">Transaksi</li>
+                    <li class="nav-item"><a class="nav-link" href="{{ route('payments.list-siswa') }}">
+                            <div class="nav-icon">
+                                <i class="cil-money icon icon-lg"></i>
+                            </div> Pembayaran
+                        </a></li>
+                @endif
+
+                @if (auth()->user()->jabatan?->role_name != App\Enums\RoleEnum::Tutor->value)
+                    <li class="nav-divider"></li>
                     <li class="nav-title">Master Data</li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('siswa.index') }}">
-                            <div class="nav-icon">
-                                <i class="fa fa-child"></i>
-                            </div> Siswa
-                        </a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('alumni.index') }}">
-                            <div class="nav-icon">
-                                <i class="fa fa-user-graduate"></i>
-                            </div> Alumni
-                        </a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">
-                            <div class="nav-icon">
-                                <i class="cil-people"></i>
-                            </div> Users
-                        </a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{ route('program.index') }}">
-                            <div class="nav-icon">
-                                <i class="cil-book"></i>
-                            </div> Program
-                        </a></li>
+
+                    @if (auth()->user()->jabatan?->role_name == App\Enums\RoleEnum::CentralHead->value)
+                        <li class="nav-item"><a class="nav-link" href="{{ route('users.index') }}">
+                                <div class="nav-icon">
+                                    <i class="cil-people"></i>
+                                </div> Users
+                            </a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('alumni.index') }}">
+                                <div class="nav-icon">
+                                    <i class="fa fa-user-graduate"></i>
+                                </div> Alumni
+                            </a></li>
+                    @else
+                        <li class="nav-item"><a class="nav-link" href="{{ route('siswa.index') }}">
+                                <div class="nav-icon">
+                                    <i class="fa fa-child"></i>
+                                </div> Siswa
+                            </a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('program.index') }}">
+                                <div class="nav-icon">
+                                    <i class="cil-book"></i>
+                                </div> Program
+                            </a></li>
+                    @endif
 
                     @if (auth()->user()->jabatan?->role_name == App\Enums\RoleEnum::Administrator->value)
                         <li class="nav-item"><a class="nav-link" href="{{ route('jadwal-ajar.index') }}">
                                 <div class="nav-icon">
                                     <i class="cil-calendar"></i>
                                 </div> Jadwal Ajar
+                            </a></li>
+
+                        <li class="nav-divider"></li>
+                        <li class="nav-title">Laporan</li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('reports.payments.create') }}">
+                                <div class="nav-icon">
+                                    <i class="fas fa-receipt"></i>
+                                </div> Pembayaran Bimbingan
+                            </a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('reports.presensi.create') }}">
+                                <div class="nav-icon">
+                                    <i class="fas fa-receipt"></i>
+                                </div> Rekap Presensi
+                            </a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{ route('reports.alumni.create') }}">
+                                <div class="nav-icon">
+                                    <i class="fas fa-receipt"></i>
+                                </div> Daftar Alumni
                             </a></li>
                     @else
                         <li class="nav-divider"></li>
@@ -90,24 +114,6 @@
                                 <div class="nav-icon">
                                     <i class="fa-regular fa-building"></i>
                                 </div> Cabang
-                            </a></li>
-
-                        <li class="nav-divider"></li>
-                        <li class="nav-title">Laporan</li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('reports.payments.create') }}">
-                                <div class="nav-icon">
-                                    <i class="fas fa-receipt"></i>
-                                </div> Pembayaran
-                            </a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('reports.presensi.create') }}">
-                                <div class="nav-icon">
-                                    <i class="fas fa-receipt"></i>
-                                </div> Presensi
-                            </a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('reports.alumni.create') }}">
-                                <div class="nav-icon">
-                                    <i class="fas fa-receipt"></i>
-                                </div> Alumni
                             </a></li>
                     @endif
 

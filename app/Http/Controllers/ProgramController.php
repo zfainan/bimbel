@@ -16,11 +16,8 @@ class ProgramController extends Controller
     public function __construct()
     {
         $this->middleware(
-            sprintf('role:%s|%s', RoleEnum::Administrator->value, RoleEnum::CentralHead->value)
-        )->only(['index', 'show']);
-        $this->middleware(
             sprintf('role:%s', RoleEnum::Administrator->value)
-        )->except(['index', 'show']);
+        );
     }
 
     /**

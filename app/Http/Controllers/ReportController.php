@@ -19,7 +19,7 @@ class ReportController extends Controller
     public function __construct()
     {
         $this->middleware(
-            sprintf('role:%s', RoleEnum::CentralHead->value)
+            sprintf('role:%s', RoleEnum::Administrator->value)
         );
     }
 
