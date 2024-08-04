@@ -8,10 +8,8 @@ use App\Enums\RoleEnum;
 use App\Models\Alumni;
 use App\Models\JadwalAjar;
 use App\Models\Payment;
-use App\Models\Pertemuan;
-use App\Models\User;
+use App\Models\Program;
 use Barryvdh\DomPDF\Facade\Pdf;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -41,44 +39,22 @@ class ReportController extends Controller
 
     public function createPresensi(Request $request)
     {
-        $request->validate([
-            'id_tentor' => 'nullable|exists:users,id',
-        ]);
+        $program = Program::all();
 
-        $tentor = User::whereHas('jabatan', fn ($builder) => $builder->where('role_name', RoleEnum::Tutor->value))
-            ->get();
-        $selectedTentor = null;
-        $jadwal = null;
-
-        if ($request->filled('id_tentor')) {
-            $selectedTentor = User::whereId($request->id_tentor)
-                ->whereHas('jabatan', fn ($builder) => $builder->where('role_name', RoleEnum::Tutor->value))
-                ->first();
-
-            if ($selectedTentor?->id) {
-                $jadwal = JadwalAjar::with(['program'])
-                    ->where('id_tentor', $selectedTentor?->id)->get();
-            }
-        }
-
-        return view('reports.presensi.create', compact('tentor', 'jadwal', 'selectedTentor'));
+        return view('reports.presensi.create', compact('program'));
     }
 
     public function downloadPresensi(Request $request)
     {
         $request->validate([
-            'id_jadwal' => 'required|exists:jadwal_ajar,id',
+            'id_program' => 'required|exists:jadwal_ajar,id',
         ]);
 
-        $jadwal = JadwalAjar::with(['tentor', 'program', 'branch'])
-            ->findOrFail($request->id_jadwal);
-
-        /** @var Collection $data */
-        $data = Pertemuan::with(['presensi.siswa'])
-            ->where('id_jadwal', $request->id_jadwal)
+        $data = JadwalAjar::with(['tentor', 'program', 'branch', 'pertemuan.presensi.siswa'])
+            ->where('id_program', $request->id_program)
             ->get();
 
-        $pdf = Pdf::loadView('reports.presensi.pdf', compact('data', 'jadwal'));
+        $pdf = Pdf::loadView('reports.presensi.pdf', compact('data'));
 
         return $pdf->download('presensi.pdf');
     }
@@ -86,12 +62,11 @@ class ReportController extends Controller
     public function downloadAlumni(Request $request)
     {
         $request->validate([
-            'since' => 'required|date',
-            'until' => 'required|date',
+            'year' => 'required|numeric|min_digits:4|max_digits:4',
         ]);
 
         $data = Alumni::with(['siswa'])
-            ->whereBetween('created_at', [$request->since, $request->until])
+            ->where('tahun_angkatan', $request->year)
             ->get();
 
         $pdf = Pdf::loadView('reports.alumni.pdf', compact('data', 'request'));

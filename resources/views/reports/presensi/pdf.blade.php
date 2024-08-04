@@ -48,8 +48,6 @@
                 <td class="company-details">
                     <h1>Smartgama</h1>
                     <p>Jl. Raya Nguter, Sukoharjo, RT. 01, RW. 05.</p>
-                    {{-- <p>Telepon: (021) 123-4567 | Email: info@pendaftaranbimbelsmartgama.com</p> --}}
-                    <p>Website: https://pendaftaranbimbelsmartgama.my.id</p>
                 </td>
             </tr>
         </table>
@@ -63,19 +61,9 @@
 
         <table class="table">
             <tr>
-                <td>Tentor</td>
-                <td>:</td>
-                <td>{{ $jadwal?->tentor?->name }}</td>
-            </tr>
-            <tr>
                 <td>Program</td>
                 <td>:</td>
-                <td>{{ $jadwal?->program?->nama_program }}</td>
-            </tr>
-            <tr>
-                <td>Jadwal</td>
-                <td>:</td>
-                <td>{{ $jadwal?->hari }} - {{ $jadwal?->jam }}</td>
+                <td>{{ $data?->first()?->program->nama_program ?? '-' }}</td>
             </tr>
             <tr>
                 <td>Tanggal Cetak</td>
@@ -86,26 +74,37 @@
 
         <br>
 
-        @foreach ($data as $pertemuan)
-            <p>Pertemuan ke: <strong>{{ $loop->iteration }}</strong></p>
-            <p>Tanggal: <strong>{{ $pertemuan->tanggal }}</strong></p>
+        @foreach ($data as $jadwal)
+            <hr>
 
-            <table class="table-border table">
-                <thead>
-                    <tr>
-                        <th>Siswa</th>
-                        <th>Status Kehadiran</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($pertemuan?->presensi as $presensi)
+            <p>Jadwal Pertemuan: <strong>{{ $jadwal->hari }}</strong> - <strong>{{ $jadwal->jam }}</strong></p>
+
+            <p>
+                Daftar Pertemuan: @if (!count($jadwal?->pertemuan))
+                    <strong>Belum ada pertemuan.</strong>
+                @endif
+            </p>
+
+            @foreach ($jadwal?->pertemuan ?? [] as $pertemuan)
+                <p>{{ $loop->iteration }}. {{ $pertemuan->tanggal }}</p>
+
+                <table class="table-border table">
+                    <thead>
                         <tr>
-                            <td>{{ $presensi->siswa?->nama }}</td>
-                            <td>{{ $presensi->hadir ? 'Hadir' : 'Tidak Hadir' }}</td>
+                            <th>Siswa</th>
+                            <th>Status Kehadiran</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($pertemuan?->presensi as $presensi)
+                            <tr>
+                                <td>{{ $presensi->siswa?->nama }}</td>
+                                <td>{{ $presensi->hadir ? 'Hadir' : 'Tidak Hadir' }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            @endforeach
 
             <br>
         @endforeach

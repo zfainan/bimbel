@@ -18,19 +18,11 @@
                 @csrf
 
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="since">Tanggal awal<span
+                    <label class="col-sm-2 col-form-label" for="year">Tahun Angkatan<span
                             class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <input type="datetime-local" value="{{ old('since') ?? today()->subDays(30) }}" name="since"
-                            class="form-control @error('since') is-invalid @enderror" required>
-                    </div>
-                </div>
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="until">Tanggal akhir<span
-                            class="text-danger">*</span></label>
-                    <div class="col-sm-10">
-                        <input type="datetime-local" value="{{ old('until') ?? today() }}" name="until"
-                            class="form-control @error('until') is-invalid @enderror" required>
+                        <input type="number" max="9999" min="1000" value="{{ old('year') }}" name="year"
+                            class="form-control @error('year') is-invalid @enderror" required>
                     </div>
                 </div>
 

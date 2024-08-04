@@ -18,40 +18,19 @@
                 @csrf
 
                 <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="id_tentor">Tentor<span class="text-danger">*</span></label>
+                    <label class="col-sm-2 col-form-label" for="id_program">Program<span
+                            class="text-danger">*</span></label>
                     <div class="col-sm-10">
-                        <select name="id_tentor" class="form-control @error('id_tentor') is-invalid @enderror" required>
-                            <option selected value disabled>Pilih tentor</option>
+                        <select name="id_program" class="form-control @error('id_program') is-invalid @enderror" required>
+                            <option selected value disabled>Pilih Program</option>
 
-                            @foreach ($tentor as $item)
-                                <option @selected((old('id_tentor') ?? $selectedTentor?->id) == $item->id) value="{{ $item->id }}">{{ $item->name }}
+                            @foreach ($program as $item)
+                                <option @selected(old('id_program') == $item->id_program) value="{{ $item->id_program }}">{{ $item->nama_program }}
                                 </option>
                             @endforeach
                         </select>
 
-                        @error('id_tentor')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
-                    </div>
-                </div>
-
-                <div class="row mb-3">
-                    <label class="col-sm-2 col-form-label" for="id_jadwal">Jadwal<span class="text-danger">*</span></label>
-                    <div class="col-sm-10">
-                        <select name="id_jadwal" class="form-control @error('id_jadwal') is-invalid @enderror" required
-                            @disabled(!$selectedTentor)>
-                            <option selected value disabled>Pilih jadwal</option>
-
-                            @foreach ($jadwal ?? [] as $item)
-                                <option @selected(old('id_jadwal') == $item->id) value="{{ $item->id }}">
-                                    {{ $item->program?->nama_program }} - {{ $item->hari }} - {{ $item->jam }}
-                                </option>
-                            @endforeach
-                        </select>
-
-                        @error('id_jadwal')
+                        @error('id_program')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>

@@ -48,8 +48,6 @@
                 <td class="company-details">
                     <h1>Smartgama</h1>
                     <p>Jl. Raya Nguter, Sukoharjo, RT. 01, RW. 05.</p>
-                    {{-- <p>Telepon: (021) 123-4567 | Email: info@pendaftaranbimbelsmartgama.com</p> --}}
-                    <p>Website: https://pendaftaranbimbelsmartgama.my.id</p>
                 </td>
             </tr>
         </table>
