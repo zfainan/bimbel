@@ -17,7 +17,7 @@ class ReportController extends Controller
     public function __construct()
     {
         $this->middleware(
-            sprintf('role:%s', RoleEnum::Administrator->value)
+            sprintf('role:%s|%s', RoleEnum::Administrator->value, RoleEnum::CentralHead->value)
         );
     }
 
@@ -47,7 +47,7 @@ class ReportController extends Controller
     public function downloadPresensi(Request $request)
     {
         $request->validate([
-            'id_program' => 'required|exists:jadwal_ajar,id',
+            'id_program' => 'required|exists:tb_program,id_program',
         ]);
 
         $data = JadwalAjar::with(['tentor', 'program', 'branch', 'pertemuan.presensi.siswa'])
