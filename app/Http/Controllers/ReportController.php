@@ -48,13 +48,18 @@ class ReportController extends Controller
     {
         $request->validate([
             'id_program' => 'required|exists:tb_program,id_program',
+            'since' => 'required|date',
+            'until' => 'required|date',
         ]);
 
         $data = JadwalAjar::with(['tentor', 'program', 'branch', 'pertemuan.presensi.siswa'])
             ->where('id_program', $request->id_program)
+            ->whereHas('pertemuan', function ($builder) use ($request) {
+                $builder->whereBetween('tanggal', [$request->since, $request->until]);
+            })
             ->get();
 
-        $pdf = Pdf::loadView('reports.presensi.pdf', compact('data'));
+        $pdf = Pdf::loadView('reports.presensi.pdf', compact('data', 'request'));
 
         return $pdf->download('presensi.pdf');
     }

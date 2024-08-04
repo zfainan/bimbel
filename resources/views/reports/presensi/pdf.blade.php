@@ -65,6 +65,20 @@
                 <td>:</td>
                 <td>{{ $data?->first()?->program->nama_program ?? '-' }}</td>
             </tr>
+            @if ($request->filled('since'))
+                <tr>
+                    <td>Sejak</td>
+                    <td>:</td>
+                    <td>{{ $request->get('since') }}</td>
+                </tr>
+            @endif
+            @if ($request->filled('until'))
+                <tr>
+                    <td>Sampai</td>
+                    <td>:</td>
+                    <td>{{ $request->get('until') }}</td>
+                </tr>
+            @endif
             <tr>
                 <td>Tanggal Cetak</td>
                 <td>:</td>

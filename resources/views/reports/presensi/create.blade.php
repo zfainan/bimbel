@@ -25,7 +25,8 @@
                             <option selected value disabled>Pilih Program</option>
 
                             @foreach ($program as $item)
-                                <option @selected(old('id_program') == $item->id_program) value="{{ $item->id_program }}">{{ $item->nama_program }}
+                                <option @selected(old('id_program') == $item->id_program) value="{{ $item->id_program }}">
+                                    {{ $item->nama_program }}
                                 </option>
                             @endforeach
                         </select>
@@ -35,6 +36,23 @@
                                 <strong>{{ $message }}</strong>
                             </span>
                         @enderror
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="since">Tanggal awal<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-10">
+                        <input type="datetime-local" value="{{ old('since') ?? today()->subDays(30) }}" name="since"
+                            class="form-control @error('since') is-invalid @enderror" required>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label" for="until">Tanggal akhir<span
+                            class="text-danger">*</span></label>
+                    <div class="col-sm-10">
+                        <input type="datetime-local" value="{{ old('until') ?? today() }}" name="until"
+                            class="form-control @error('until') is-invalid @enderror" required>
                     </div>
                 </div>
 
