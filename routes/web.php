@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 use App\Http\Controllers\AlumniController;
 use App\Http\Controllers\CabangController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\JadwalAjarController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PertemuanController;
@@ -20,7 +21,7 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::get('dashboard', DashboardController::class)->name('dashboard');
 
     Route::prefix('master-data')->group(function () {
         Route::resource('siswa', SiswaController::class);
